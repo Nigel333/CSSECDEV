@@ -1,0 +1,24 @@
+<script src="/static/js/edit.js"></script>
+
+<div class="column-content-container">
+    <h1>Edit Profile</h1>
+    <hr>
+    <div id="edit-container">
+        <div id="image-container">
+            <img src="/static/images/profile/{{user.profile_pic}}" id="profile-pic">
+            <button id="edit-change-image-btn"></button>
+        </div>
+        <div id="info-container">
+            <h3>Display name</h3>
+            <p>Set a display name. This does not change your username.</p>
+            <input type="text" value="{{user.name}}" id="new-name" required>
+            <h3>Bio</h3>
+            <p>A brief description of yourself shown on your profile.</p>
+            <textarea id="new-bio" required>{{user.bio}}</textarea>
+            <div id="button-container">
+                <input type="submit" id="save-edit-btn" value="Save" onclick="editProfile()">
+                <input type="button" id="cancel" value="Cancel" onclick="window.location.href='/main-profile'">
+            </div>
+        </div>
+    </div>
+</div>

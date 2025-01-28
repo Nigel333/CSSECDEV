@@ -1,0 +1,49 @@
+<div class="single-comment-main" id="{{comment_id}}">
+    <div class="comID" style="display: none;">{{comment_id}}</div>
+    <div class="single-comment">
+        <div class="sc-left">
+            <img class="sc-picture" src="/static/images/profile/{{author.profile_pic}}">
+        </div>
+        <div class="sc-right">
+            <div class="sc-top">
+                <div class="sc-name">{{author.username}} • 3 days ago</div>
+                {{#if edited}}
+                <p class="sc-edited" id="sc-edited-{{comment_id}}" data-edited="true">Edited</p>
+                {{else}}
+                <p class="sc-edited" id="sc-edited-{{comment_id}}" data-edited="false"></p>
+                {{/if}}
+            </div>
+            <div class="sc-right-content">
+                <div class="sc-body" id="sc-body-{{comment_id}}">{{content}}</div>
+            </div>
+            <div class="sc-footer">
+                <div class="sc-vote">
+                    <button class="sc-upvote-button">
+                        <img src="/static/images/post/upvote.png" class="sc-upvote">
+                    </button>
+                    <p class="sc-num-votes">{{voteCtr}}</p>
+                    <button class="sc-downvote-button">
+                        <img src="/static/images/post/downvote.png" class="sc-downvote">
+                    </button>
+                    <button class="sc-reply-button">Reply</button>
+                </div>
+                {{#if (isEqual @root.currentUser.username author.username)}}
+                <div class="sc-actions">
+                    <button class="sc-edit-button"
+                        onclick="handleEditComment(document.querySelector('#sc-edited-{{comment_id}}'), document.querySelector('#sc-body-{{comment_id}}'), '{{comment_id}}')">Edit</button>
+                    <button class="sc-delete-button" "onclick=handleDeleteComment('{{comment_id}}')">Delete</button>
+                </div>
+                {{/if}}
+            </div>
+
+            <div class="reply-form" style="display:none;">
+                <textarea class="reply-area" rows="1" placeholder="Write a reply"></textarea>
+                <button class="submit-reply">Submit</button>
+            </div>
+            <div class="replies">
+                <!-- Replies will be appended here -->
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,2158 @@
+/*---- Text Imports ----*/
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/INTER.ttf') format('truetype')
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OPENSANS.ttf') format('truetype')
+}
+
+/*----- General Elements: Header, Footer, & Scroll Up Icon -----*/
+
+/*----------- Specifications for the Main Container ------------*/
+
+.row-content-container {
+  display: flex;
+  flex-direction: row;
+  margin: 70px 150px;
+  padding: 0 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.column-content-container {
+  margin: 70px 150px;
+  padding: 0 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Note: View conflicts with the general content containers */
+.view-container {
+  display: flex;
+  width: 85%;
+  margin: -60px auto 0 auto;
+  padding: 20px 20px 30px 20px;
+}
+
+/*------------- Specifications for the Righside -------------*/
+/* This is for rightside containers in Polls and View Post */
+
+.polls-rightside {
+  width: 30%;
+  height: fit-content;
+  margin-left: 70px;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+}
+
+.view-rightside {
+  width: 320px;
+  height: fit-content;
+  margin-right: 30px;
+  margin-top: 50px;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+}
+
+/* Elements of the Rightside */
+
+.rightside-title-container {
+  background-color: #6C8CA4;
+  text-align: center;
+  border-radius: 20px 20px 0 0;
+  padding: 15px;
+}
+
+.rightside-title-container h4 {
+  color: #FFFCFC;
+  padding: 0;
+  margin: 0;
+}
+
+.rightside-content {
+  text-align: left;
+  padding: 10px 30px;
+  border-top: 1px solid #DEE3E7;
+}
+
+.rightside-content h4 {
+  font-size: 16px;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.rightside-content p {
+  margin: 15px 0;
+  padding: 0;
+}
+
+/*------------- Specifications for the Header -------------*/
+/* Contains Navigation Container (Logo, Search Bar, Links) */
+
+nav {
+  /* Navigation Container */
+  background-color: #2C394B;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+#logo {
+  /* Logo Image for Header */
+  width: auto;
+  height: 100px;
+  margin: 0;
+  padding-left: 15px;
+}
+
+.search-bar {
+  /* Search Bar in Header */
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+#search-text {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  padding-left: 45px;
+  border-radius: 5px;
+  border: 1px solid #858E99;
+  background-color: transparent;
+  background-image: url('../images/icons/search.png');
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: 10px center;
+  color: #DEE3E7;
+}
+
+#search-text::placeholder {
+  color: #DEE3E7;
+}
+
+.nav-buttons {
+  /* Button Specification for Sign In */
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-right: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.nav-buttons a {
+  text-decoration: none;
+  color: #FFFCFC;
+  padding: 10px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#signinlink {
+  /* Specification for Sign In Link */
+  margin-left: 10px;
+}
+
+#signinlink:hover {
+  color: #FF4C29;
+}
+
+#profile {
+  /* Specifications for Profile */
+  width: auto;
+  height: 35px;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid white;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+#dropdown {
+  /* Specifications for Dropdown */
+  width: auto;
+  height: 20px;
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  left: -100px;
+}
+
+.dropdown-content a {
+  color: #2C394B;
+  padding: 12px 16px;
+  text-decoration: none;
+  font-weight: 300;
+  display: block;
+  text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #FF4C29;
+  color: #FFFCFC;
+}
+
+/* -------------------- Scroll Button -------------------*/
+/*       Function: Redirects User to Top of Page         */
+
+.scroll-up-button {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background-color: transparent;
+  border: none;
+  z-index: 99;
+  cursor: pointer;
+}
+
+.scroll-up {
+  width: 40px;
+  height: 40px;
+}
+
+/*------------- Specifications for the Footer -------------*/
+/*  Contains Footer Container (Logo, Social Icons, Links)  */
+
+footer {
+  /* Specifications for Footer Container */
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+#footer-logo {
+  /* Specifications for Logo Container */
+  text-align: center;
+}
+
+#footer-logo img {
+  max-width: 250px;
+  height: auto;
+}
+
+.tabs ul {
+  /* Specifications for Links */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tabs ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.tabs ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.social-icons a {
+  color: #333;
+  margin: 0 5px;
+}
+
+.social-icons a i {
+  /* Specifications for Social Icon */
+  font-size: 20px;
+}
+
+.social-icons a:hover {
+  color: #666;
+}
+
+.social-icons a:hover i {
+  transform: scale(1.2);
+}
+
+.social-icons a:first-child {
+  margin-left: 0;
+}
+
+.social-icons a:last-child {
+  margin-right: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/*----- General Elements: Font and Initial Alignment of Items in Pages -----*/
+
+body {
+  /* General Settings */
+  color: #2C394B;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: #FFFCFC;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', serif;
+  justify-content: center;
+  text-align: center;
+  justify-content: space-between;
+}
+
+hr {
+  border: none;
+  height: 0.5px;
+  background-color: #DEE3E7;
+}
+
+#grey-text {
+  color: #858E99;
+}
+
+/*-------------- SPECIFICATIONS FOR THE INDEX (HOME) PAGE ------------------*/
+/*  Contains Carousel Section, Post&Poll Section, Create post pop up, etc.  */
+
+/* ---- CAROUSEL SECTION -----*/
+
+.carousel-container {
+  /* Carousel */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.carousel-inner {
+  /* Inside the Carousel */
+  width: 100%;
+  height: 0;
+  padding-bottom: 26.5%;
+  overflow: hidden;
+}
+
+.carousel-inner .item {
+  /* Inside the Carousel */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-inner .item img {
+  /* Pictures Inside the Carousel */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-indicators {
+  /* Carousel Indicators */
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-control {
+  /* Carousel Arrows */
+  font-size: 10px;
+  width: 5px;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.carousel-control.left {
+  left: 20px;
+}
+
+.carousel-control.right {
+  right: 20px;
+}
+
+/* ---- POST AND POLL SECTION -----*/
+
+.postpoll-container {
+  margin: 0 auto;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-post {
+  width: 70%;
+  margin-right: 30px;
+}
+
+.polls-container {
+  width: 30%;
+}
+
+/* Posts */
+/* Hard Coded: might be edited in the next phase */
+
+/* Posts when Viewed */
+.view-post-container {
+  width: 100%;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+}
+
+/* Posts in Index and Profile */
+.post-container {
+  width: 95%;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+
+.vote {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 10px;
+}
+
+.upvote,
+.downvote {
+  width: 30px;
+  height: auto;
+}
+
+.upvote-button,
+.downvote-button {
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.num-votes {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  align-self: center;
+  padding: 0;
+}
+
+.content {
+  width: 95%;
+}
+
+.post-content {
+  margin: 15px 40px 30px 15px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.title {
+  margin-bottom: 3px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.author {
+  margin-bottom: 15px;
+  font-family: 'Open Sans';
+}
+
+.text {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-family: 'Open Sans';
+}
+
+.sample {
+  width: 100%;
+  height: auto;
+}
+
+.post-edited {
+  margin-top: 15px;
+  text-align: right;
+  color: #1E883E;
+}
+
+.edit,
+.comment,
+.delete {
+  width: auto;
+  height: 25px;
+  margin-right: -5px;
+}
+
+.delete-post,
+.edit-post {
+  margin-right: 15px;
+}
+
+.delete-button {
+  border: none;
+  padding: 0;
+  margin-top: -5px;
+  margin-right: 7px;
+}
+
+.edit-button {
+  border: none;
+  padding: 0;
+  margin-top: -5px;
+  margin-right: 7px;
+}
+
+.comment-button {
+  border: none;
+  padding: 0;
+  margin-right: 7px;
+}
+
+.save {
+  height: 25px;
+  width: auto;
+}
+
+.save-button {
+  margin-left: auto;
+  border: none;
+  padding: 0;
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  margin-top: -10px;
+  margin-right: 40px;
+}
+
+.post-actions p {
+  font-weight: bold;
+  color: #A2AAB4;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.post-clickable {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-clickable:hover,
+.post-clickable:focus,
+.post-clickable:active {
+  text-decoration: none;
+  color: black;
+}
+
+/* ---- POST SECTION (Also affects anime section *Pls check to confirm*) -----*/
+/* Contains polls, check this out section, top post, and waifus of the month  */
+
+
+.polls-container h3 {
+  /* Polls Container */
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: -5px;
+  margin-top: 0;
+}
+
+.check-container {
+  /* Check This Out */
+  margin-bottom: 40px;
+}
+
+.check-users {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+
+.name-container {
+  margin: auto 10px;
+  text-align: left;
+}
+
+.name-container a {
+  color: #2C394B;
+}
+
+.name-container h5,
+.name-container p {
+  padding: 0;
+  margin: 0;
+}
+
+.name-container h5 {
+  font-weight: bold;
+}
+
+.upvote-count {
+  color: #1E883E;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.top-post-container {
+  /* Top Post */
+  margin-bottom: 40px;
+  border-radius: 10px;
+  background-color: #EEF1F4;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.top-user {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin: auto 10px;
+}
+
+.top-post-text {
+  margin: 20px;
+}
+
+.top-post-text h5 {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.top-post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 15px 20px;
+}
+
+.waifu {
+  /* Waifus of the Month */
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.waifu-image {
+  width: auto;
+  height: 90px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+.waifu-info {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.waifu-info h4 {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.waifu-info p {
+  margin-top: -5px;
+  font-family: 'Open Sans';
+  font-style: italic;
+}
+
+#poll-link {
+  color: #2C394B;
+}
+
+#poll-link:hover {
+  color: #337AB7;
+  text-decoration: none;
+}
+
+.featured-header-text {
+  justify-content: center;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.featured-container {
+  width: 100%;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+
+.user-post-container {
+  /* Create Post */
+  width: 95%;
+  border-radius: 20px;
+  border: 0.75px solid #2C394B;
+  padding: 10px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.post-profile {
+  /* Image DP of User */
+  width: auto;
+  height: 35px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+.post-textbox {
+  text-align: left, center;
+  margin: 0;
+  margin-left: 20px;
+  color: #8F8D8D;
+  font-weight: 200;
+  font-family: 'Open Sans';
+  text-decoration: none;
+}
+
+.post-textbox:hover {
+  text-decoration: none;
+}
+
+/*---------------- SPECIFICATIONS FOR THE POP-UP for Create Post --------------*/
+
+#overlay,
+#edit-overlay {
+  /* Shadow Overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+#edit-overlay,
+#edit-popup {
+  display: none;
+}
+
+#popup,
+#edit-popup {
+  /*Popup Display */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 30px 30px 30px 30px;
+  z-index: 9999;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+}
+
+#title-container,
+#edit-title-container {
+  /*Title Display */
+  position: relative;
+}
+
+#title-count,
+#edit-title-count {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  margin-top: 5px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #999;
+}
+
+#title,
+#edit-title {
+  /* Title Input Format */
+  width: 96%;
+  height: 10%;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-family: 'Inter', serif;
+}
+
+#toolbar,
+#edit-toolbar {
+  /*Toolbar Format*/
+  width: 96%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #f6f7f8;
+  border: 1px solid #d6dadc;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+#content,
+#edit-content {
+  /* Input Text Format*/
+  width: 96%;
+  min-height: 200px;
+  padding: 12px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  resize: vertical;
+}
+
+#url,
+#edit-url {
+  /*Format for the URL textbox*/
+  margin-left: 5px;
+  width: 89%;
+  height: 20px;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* ------- MODIFICATION FOR ICONS -----*/
+
+#close,
+#edit-close {
+  /* Close Button (To do: Replace the Icon)*/
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: #666;
+}
+
+.toolbar-buttons,
+.edit-toolbar-buttons {
+  /* Toolbar Icons */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 20px;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#popup-submit,
+.edit-popup-submit {
+  /*Submit and Delete Button*/
+  background-color: #FF4C29;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.edit-popup-submit:hover {
+  background-color: #1E883E;
+}
+
+/* ---- ANIMATION FOR ICONS -----*/
+
+.toolbar-buttons:hover {
+  /*toolbar animations*/
+  background-color: #d6dadc;
+}
+
+#popup-submit:hover {
+  /*submit button animation*/
+  background-color: #fc3d16;
+}
+
+.resizable {
+  /*Makes the images resize to the textbox's size*/
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- Text Modifications -----*/
+
+#popup h2,
+#edit-popup h2 {
+  /* Popup Header */
+  font-size: 24px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: #2C394B;
+}
+
+/*--------- SPECIFICATIONS FOR ANIME & GAME SECTION ---------*/
+
+#anime-section {
+  width: 75%;
+  margin-right: 40px;
+}
+
+#info-section {
+  width: 25%;
+}
+
+.font-animesec {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #2C394B;
+}
+
+.anime-carousel {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+/*---- Gaming Section Specifications----*/
+
+/* Body */
+
+#gaming-section {
+  width: 75%;
+  margin-right: 40px;
+}
+
+#info-section {
+  width: 25%;
+}
+
+.font-gamingsec {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #2C394B;
+}
+
+#gaming-section {
+  width: 75%;
+  margin-right: 40px;
+}
+
+/* Carousel */
+
+.gaming-carousel {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.slide {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.slide-div {
+  display: inline-block;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.slide-div img {
+  object-fit: cover;
+  transition: filter 0.3s;
+  max-width: 100%;
+  height: 100px;
+}
+
+.slide-div:hover img {
+  filter: brightness(70%);
+}
+
+.carousel-control {
+  font-size: 10px;
+  width: 5px;
+  height: 5px;
+  top: 50%;
+  margin: 5px;
+  border-radius: 50%;
+  color: #2C394B;
+}
+
+.carousel-control:hover {
+  color: #FF4C29;
+}
+
+
+/*--------- Specifications for Comment Section ------------*/
+
+.comment-container {
+  border-radius: 10px;
+  border: 0.75px solid #858E99;
+  margin-bottom: 25px;
+  padding: 20px;
+}
+
+.comment-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment-filter {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.comment-details p {
+  color: #A2AAB4;
+  font-size: 12px;
+}
+
+#comment-username {
+  color: #FF6E51;
+  font-size: 12px;
+}
+
+#comment-post-title {
+  color: #2C394B;
+  font-size: 12px;
+}
+
+.comment-content {
+  text-align: left;
+  border-left: 1px solid #DEE3E7;
+  padding-left: 20px;
+}
+
+.reply-button {
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 5px;
+}
+
+/*--------------- SPECIFICATIONS FOR EDITING PROFILE DETAILS -----------------*/
+
+h1 {
+  text-align: left;
+  font-weight: 600;
+  font-size: 46px;
+}
+
+#edit-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 75px;
+  padding: 0 150px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Profile Picture */
+
+#profile-pic {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+#edit-change-image-btn {
+  position: absolute;
+  bottom: 40px;
+  right: 0px;
+  background: url("../images/icons/pic-edit.png") no-repeat;
+  background-size: contain;
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Profile Information */
+
+#info-container {
+  width: 60%;
+  text-align: left;
+  margin: 0 100px 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#info-container h3 {
+  font-weight: 300;
+}
+
+#info-container p {
+  color: #8F8D8D;
+  margin-bottom: 15px;
+}
+
+#new-name {
+  padding: 10px;
+  color: #8F8D8D;
+  border: 1px solid #8F8D8D;
+  border-radius: 5px;
+  width: 100%;
+  font-family: 'Open Sans';
+  margin-bottom: 30px;
+}
+
+#new-bio {
+  padding: 10px 10px 60px 10px;
+  color: #8F8D8D;
+  border: 1px solid #8F8D8D;
+  border-radius: 5px;
+  width: 100%;
+  font-family: 'Open Sans';
+  margin-bottom: 30px;
+}
+
+#button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+#save-edit-btn {
+  background-color: #1E883E;
+  border-radius: 7px;
+  border: 1px solid #016B25;
+  color: #FFFCFC;
+  padding: 10px;
+  width: 80px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#save-edit-btn:hover {
+  background-color: #334756;
+  border: 1px solid #082032;
+}
+
+
+#cancel {
+  border: 1.5px solid #858E99;
+  border-radius: 7px;
+  background-color: transparent;
+  padding: 10px;
+  width: 80px;
+  font-weight: bold;
+}
+
+/*------------ Specifications for Work in Progress Pages -----------*/
+
+img {
+  width: 400px;
+  height: auto;
+}
+
+h2 {
+  color: #6C8CA4;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#wip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+/* --------------- SPECIFICATION FOR PRIVACY POLICY SECTION ---------------------- */
+
+/* Jump Section */
+
+#jump-info {
+  width: 20%;
+  text-align: left;
+}
+
+#jump-title {
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.jump-link {
+  text-decoration: none;
+  color: #2C394B;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+
+#policy-info {
+  width: 80%;
+  text-align: left;
+  margin-left: 10px;
+}
+
+#policy-title {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+#policy-info p {
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.policy-sections {
+  font-size: 20px;
+  margin: 30px 0 20px 0;
+  padding: 0;
+}
+
+/*------------- SPECIFICATIONS FOR POLL PAGE ----------------*/
+
+.poll-content-container {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 20px 30px 20px;
+  justify-content: space-between;
+}
+
+/* Poll Container */
+
+.poll-container {
+  width: 70%;
+  text-align: left;
+}
+
+.poll-container h2 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #2C394B;
+}
+
+.poll-container p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.poll-title {
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 40px;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+/* Actual Polls */
+
+.poll-item {
+  display: flex;
+  background-color: #FF4C29;
+  border-radius: 15px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.pi-ranking {
+  font-size: 30px;
+  color: #FFFCFC;
+  margin: auto 40px;
+}
+
+.pi-image-container {
+  width: 350px;
+  height: 90px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.life-poll-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 70px;
+}
+
+.waifu-poll-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 180px;
+}
+
+.pi-title {
+  font-size: 30px;
+  color: #FFFCFC;
+  margin: auto auto;
+}
+
+/*------------------- SPECIFICATIONS FOR THE PROFILE PAGE --------------------*/
+
+/* Profile */
+
+#profile-container {
+  width: 25%;
+  text-align: left;
+}
+
+#image-container {
+  width: 260px;
+  height: 250px;
+  position: relative;
+}
+
+#profile-pic {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+#change-image-btn {
+  position: absolute;
+  bottom: -10px;
+  right: 0px;
+  background: url("../images/icons/pic-edit.png") no-repeat;
+  background-size: contain;
+  width: 70px;
+  height: 70px;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#name {
+  font-size: 42px;
+  font-weight: bold;
+  padding: 0;
+  margin-top: 30px;
+  color: #2C394B;
+}
+
+#profile-username {
+  font-size: 25px;
+  font-weight: 300;
+  padding: 0;
+  margin-top: -10px;
+}
+
+#bio {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.25;
+  padding: 0;
+  margin-top: 25px;
+}
+
+#edit-button {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  padding: 10px;
+  width: 100%;
+  border: 1.5px solid #858E99;
+  border-radius: 7px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#follow-button {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  padding: 10px;
+  width: 100%;
+  color: #FFFCFC;
+  background-color: #6C8CA4;
+  border: 1px solid #537086;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#follow-button.clicked {
+  background-color: #1E883E;
+  border: 1px solid #016B25;
+}
+
+#edit-button:hover {
+  color: #FFFCFC;
+  background-color: #1E883E;
+  border: 1px solid #016B25;
+}
+
+#followers-container {
+  display: flex;
+  align-items: center;
+}
+
+#followers-container img {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+}
+
+#followers-container p {
+  font-size: 16px;
+  margin: 0;
+  line-height: 30px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* Overview */
+
+#overview-container {
+  width: 75%;
+  margin-left: 80px;
+}
+
+/* Filter Buttons */
+
+#filter-hr {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+#filters-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter {
+  flex: 1;
+  margin-right: 10px;
+  margin-bottom: 0;
+  padding: 10px 10px 20px 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.filter.clicked {
+  font-weight: bold;
+  border-bottom: 2px solid #FF4C29;
+}
+
+/* Create Post */
+
+.profile-user-post-container {
+  width: 100%;
+  border-radius: 20px;
+  border: 0.75px solid #2C394B;
+  padding: 10px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.profile-post-profile {
+  width: auto;
+  height: 35px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+.profile-post-textbox {
+  text-align: left, center;
+  margin: 0;
+  margin-left: 20px;
+  color: #8F8D8D;
+  font-weight: 200;
+  font-family: 'Open Sans';
+  text-decoration: none;
+}
+
+.profile-post-textbox:hover {
+  text-decoration: none;
+}
+
+/* Empty Content */
+
+.empty-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50vh;
+}
+
+.empty-icon {
+  height: 100px;
+  width: auto;
+}
+
+.empty-text {
+  color: #A2AAB4;
+  font-weight: bold;
+}
+
+
+/*-------------------- SPECIFICATIONS FOR THE SIGN IN PAGE ---------------------*/
+
+#signin-body {
+  color: #2C394B;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: #FFFCFC;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', serif;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Header */
+
+header {
+  justify-content: center;
+  text-align: center;
+  padding-top: 80px;
+}
+
+#signin-logo {
+  width: auto;
+  height: 150px;
+}
+
+.signin-title {
+  font-family: 'Inter';
+  color: #2C394B;
+}
+
+/* Sign In */
+
+.signin-container {
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #F6F8FA;
+  border-radius: 10px;
+  border: 1px solid #DEE3E7;
+}
+
+.signin-form {
+  padding: 30px;
+  text-align: center;
+}
+
+/* Username and Password */
+
+.textbox {
+  width: calc(100% - 20px);
+  height: 40px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Remember and Forget */
+
+.remember-forget-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.forget {
+  margin-top: 2px;
+  margin-left: 50px;
+}
+
+.forget a {
+  color: #2C394B;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* Buttons */
+
+.button {
+  width: 100%;
+  height: 40px;
+  background-color: #FF4C29;
+  border: 1px solid #E83D1B;
+  color: #FFFCFC;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.button:hover {
+  background-color: #334756;
+  border: 1px solid #082032;
+}
+
+/* Forget Password */
+
+#forget-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.forget-popup-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  text-align: left;
+}
+
+#forget-close-button {
+  font-size: 20px;
+  color: #2C394B;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+#close-button:hover {
+  color: #DEE3E7;
+}
+
+.popup-content h2 {
+  margin-left: -15px;
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.popup-content p,
+#username {
+  margin-left: -15px;
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.popup-content p {
+  font-size: 16px;
+}
+
+#username {
+  margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: -15px;
+  padding: 5px;
+}
+
+#reset {
+  background-color: #1E883E;
+  border: 1px solid #016B25;
+  color: #FFFCFC;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  width: 80px;
+  margin-bottom: -15px;
+}
+
+#reset:hover {
+  background-color: #334756;
+  border: 1px solid #082032;
+}
+
+/*------------------- SPECIFICATIONS FOR THE REGISTER PAGE ---------------------*/
+
+#register-body {
+  color: #FFFCFC;
+  font-size: 14px;
+  line-height: 18px;
+  background: linear-gradient(to bottom, #FC8B12, #FE6705, #FE3B07, #FF3600);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', serif;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Header */
+
+.register-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 130px;
+  padding-top: 5px;
+}
+
+#register-logo {
+  width: auto;
+  height: 70px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.register-header .register-container-signin {
+  display: flex;
+  align-items: center;
+}
+
+.register-header p,
+.register-header a {
+  margin: 0;
+}
+
+.register-header p {
+  margin-right: 10px;
+}
+
+.register-header a {
+  margin-right: 30px;
+  color: #FFFCFC;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Registration */
+
+.registration-title {
+  padding-bottom: 20px;
+}
+
+.register-container {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 30px;
+  background-color: rgba(44, 57, 75, 0.15);
+  border-radius: 10px;
+  width: 700px;
+}
+
+.registration-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#register-button {
+  background: transparent;
+  outline: transparent;
+  border: none;
+}
+
+/* Registration (Left) */
+
+.registration-left {
+  flex: 1;
+  margin-right: 20px;
+  padding-left: 20px;
+}
+
+.register-textbox {
+  width: 270px;
+  height: 40px;
+  margin: 10px 0;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#password-match-icon {
+  font-size: 16px;
+  padding-right: 15px;
+}
+
+/* Registration (Right) */
+
+.registration-right {
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+#girl {
+  width: auto;
+  height: 200px;
+  padding-top: 100px;
+  padding-right: 30px;
+  margin-left: -50px;
+}
+
+/* Submission */
+
+.registration-actions {
+  text-align: right;
+}
+
+#arrow {
+  width: auto;
+  height: 30px;
+}
+
+
+/*------------------- SPECIFICATIONS FOR THE VIEW PAGE ---------------------*/
+
+.reply-textarea {
+  width: 100%;
+  margin-top: 5px;
+  /* Add some spacing between the comment and the reply text area */
+}
+
+.italic-light-gray {
+  font-style: italic;
+  color: lightgray;
+}
+
+#view-body {
+  color: #2C394B;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: #FFFCFC;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', serif;
+  text-align: center;
+}
+
+.view-post {
+  flex: 4;
+  margin: 15px;
+  margin-right: 40px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.actual-post {
+  margin: 5px;
+  padding: 20px;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.view-comments {
+  padding: 20px;
+  margin: 10px 10px 20px 20px;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.post-profile {
+  width: auto;
+  height: 45px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+  margin-right: 5px;
+}
+
+.add-comment {
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 10px 10px 20px 20px;
+}
+
+.comment-area {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-left: 5px;
+  color: #8F8D8D;
+  text-align: left;
+}
+
+.reply-text-area {
+  width: 85%;
+  padding: 10px;
+  margin: 10px 10px 20px 110px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: #8F8D8D;
+  text-align: left;
+}
+
+
+.submit-comment {
+  width: auto;
+  height: 35px;
+}
+
+.submit-button {
+  border: none;
+  padding: 0;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.single-comment-main {
+  margin: 23px;
+}
+
+.single-comment {
+  display: flex;
+  margin: 5px;
+}
+
+.sc-picture {
+  width: auto;
+  height: 45px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.sc-right {
+  display: flex;
+  width: 100%;
+  margin-left: 5px;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.sc-name {
+  flex: 2;
+  font-size: 11px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.sc-right-content {
+  flex: 8;
+  background-color: #fffcfc;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.sc-body {
+  margin-left: 5px;
+  text-align: left;
+}
+
+.sc-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sc-vote {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sc-upvote,
+.sc-downvote {
+  width: 15px;
+  height: 15px;
+}
+
+.sc-upvote-button,
+.sc-downvote-button {
+  border: none;
+  margin: 0 5px 0 5px;
+  padding: 0;
+}
+
+.sc-num-votes {
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  margin-top: 3px;
+}
+
+.sc-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-reply-button,
+.sc-edit-button,
+.sc-delete-button {
+  border: none;
+  height: 13px;
+  margin-left: 10px;
+}
+
+.sc-edited {
+  font-size: 11px;
+  color: #1E883E;
+}
+
+/*------------------- SPECIFICATIONS FOR THE SEARCH PAGE ---------------------*/
+
+.search-title {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.search-title h2 {
+  color: #2C394B;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+#search-query {
+  font-weight: 300;
+}
+
+.search-overview {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-filters {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.search-filters h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.search-filter {
+  margin-top: 20px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+  background-color: transparent;
+  text-align: left;
+}
+
+.search-filter.clicked {
+  font-weight: 500;
+  color: #FF4C29
+}
+
+.search-finds {
+  width: 80%;
+  border-left: 1px solid #DEE3E7;
+  padding-left: 50px;
+}
+
+.search-user {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 0.75px solid #858E99;
+  margin-bottom: 20px;
+  padding: 20px;
+}

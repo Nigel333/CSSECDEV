@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+{{#if noLayout}}
+{{!-- If noLayout exists, render the content without the main layout --}}
+{{{body}}}
+{{else}}
+
+<head>
+    <title> {{title}} </title>
+    {{!--
+    <script src="{{script}}" defer> </script> --}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <script src="/js/navbar.js"></script>
+    <link rel="stylesheet" href="/static/style/styles.css">
+    <link rel="icon" href="/static/images/icons/icon.png" type="image/png">
+</head>
+
+<body>
+    <nav>
+        <a href="/home">
+            <img src="/static/images/logo/logo3.png" id="logo">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Weeb Lib..." id="search-text">
+        </div>
+        <div class="nav-buttons">
+            <a href="/featured">Featured</a>
+            <a href="/polls">Polls</a>
+            <a href="/anime">Anime</a>
+            <a href="/games">Games</a>
+            <img src="/images/profile/{{@root.currentUser.profile_pic}}" id="profile">
+            <div class="dropdown">
+                <a href="javascript:void(0);" id="user-dropdown">
+                    <img src="/images/icons/dropdown.png" id="dropdown">
+                </a>
+                <div class="dropdown-content">
+                    <a href="/main-profile">My Profile</a>
+                    <a href="/signin">Log out</a>
+                </div>
+            </div>
+            <a href="/signin" id="signin-link">Sign In</a>
+        </div>
+    </nav>
+    {{{ body }}}
+    <footer>
+        <br /><br />
+        <div id="footer-logo">
+            <img src="/static/images/logo/logo1.png" alt="Logo">
+        </div>
+        <br /><br />
+        <div class="tabs">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/games">Games</a></li>
+                <li><a href="/anime">Anime</a></li>
+                <li><a href="/polls">Polls</a></li>
+                <li><a href="/policy">Privacy Policy</a></li>
+                <li><a href="/wip">About Us </a></li>
+            </ul>
+        </div>
+        <br /><br />
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-discord"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitch"></i></a>
+        </div>
+        <br /><br />
+        <div class="copyright">
+            <p>All rights reserved. &copy; 2023</p>
+        </div>
+        <br /><br /><br />
+    </footer>
+</body>
+{{/if}}
+
+</html>

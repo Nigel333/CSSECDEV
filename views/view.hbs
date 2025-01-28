@@ -1,0 +1,54 @@
+<script src="/static/js/view.js"></script>
+<script src="/static/js/viewpost.js"></script>
+
+<div class="post_id" style="display: none;">{{post.post_id}}</div>
+<div class="view-container">
+    <div class="view-post">
+        <div class="actual-post">
+            {{> viewpost post}}
+        </div>
+        <div class="add-comment">
+            <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
+            <textarea class="comment-area" placeholder="Write a Comment..."></textarea>
+            <button onclick="handleCommentCreation()" class="submit-button">
+                <img src="/static/images/icons/send.png" class="submit-comment">
+            </button>
+        </div>
+        <div class="view-comments">
+            {{#each post.comments }}
+            {{> viewcomment this}}
+            {{/each}}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="view-rightside">
+        <div class="rightside-title-container">
+            <h4>GUIDELINES</h4>
+        </div>
+        <div class="rightside-content">
+            <h4>Be Respectful</h4>
+            <p>Treat others how you would want to be treated.</p>
+        </div>
+        <div class="rightside-content">
+            <h4>No Spamming</h4>
+            <p>Avoid repeating yourself needlessly.</p>
+        </div>
+        <div class="rightside-content">
+            <h4>No Self-Promotion</h4>
+            <p>This is a weeb forum for anime and games, please stay on topic.</p>
+        </div>
+        <div class="rightside-content">
+            <h4>Respect Intellectual Property</h4>
+            <p>Follow copyright laws and avoid infringing on others' property.</p>
+        </div>
+        <div class="rightside-content">
+            <h4>No Hate Speech or Offensive Content</h4>
+            <p>No offensive material, such as explicit language, graphic imagery, or derogatory slurs.
+        </div>
+    </div>
+</div>
+</div>
+<button class="scroll-up-button">
+    <img src="/static/images/icons/scroll.png" class="scroll-up">
+</button>

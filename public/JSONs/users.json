@@ -1,0 +1,128 @@
+[
+  {
+    "_id": {
+      "$oid": "64bd44f468b44f474a608ca4"
+    },
+    "user_id": 0,
+    "name": "Anonymous",
+    "username": "u/anonymous",
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f463"
+    },
+    "user_id": 1,
+    "profile_pic": "Johann.png",
+    "name": "Johann",
+    "username": "u/Lotad_is_Life",
+    "password": "password",
+    "bio": "My dream is to build a paradise for undead in this academy, and then we'll spend a life of degeneracy together!",
+    "postsMade": [
+      "64bbce8c9e08a4493219f47d"
+    ],
+    "upvotedPosts": [],
+    "downvotedPosts": [],
+    "savedPosts": [],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f466"
+    },
+    "user_id": 2,
+    "profile_pic": "DedInComSci.png",
+    "name": "Eugene",
+    "username": "u/DedInComSci",
+    "password": "password",
+    "bio": "I ordered a pizza last YEAR and it hasn't come yet hahaha. i also haven't felt genuine happiness since 2012.",
+    "postsMade": [
+      "64bbce8c9e08a4493219f477"
+    ],
+    "upvotedPosts": [],
+    "downvotedPosts": [],
+    "savedPosts": [],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f469"
+    },
+    "user_id": 3,
+    "profile_pic": "Nigel.png",
+    "name": "Nigel",
+    "username": "u/cornbrip69",
+    "password": "password",
+    "bio": "honor student ka lang, tiktoker ako. ano'ng maagagawa ng medal mo, pag nag-renegade ako sa harapan mo?",
+    "postsMade": [
+      "64bbce8c9e08a4493219f483"
+    ],
+    "upvotedPosts": [],
+    "downvotedPosts": [],
+    "savedPosts": [],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f46c"
+    },
+    "user_id": 4,
+    "profile_pic": "IAmLoaf21.png",
+    "name": "IAmLoaf21",
+    "username": "u/IAmLoaf21",
+    "password": "password",
+    "bio": "Poide bang layu-layuan mo yung crushiecakes honeybunch sugarplum ko?",
+    "postsMade": [
+      "64bbce8c9e08a4493219f47a"
+    ],
+    "upvotedPosts": [],
+    "downvotedPosts": [],
+    "savedPosts": [],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f46f"
+    },
+    "user_id": 5,
+    "profile_pic": "Cinnamoroll.png",
+    "name": "Cinnamoroll",
+    "username": "u/shellyace",
+    "password": "password",
+    "bio": "meron ka bang mga emotional baggage? hinde, i prefer to carry small bags.",
+    "postsMade": [
+      "64bbce8c9e08a4493219f480"
+    ],
+    "upvotedPosts": [
+      "64bbce8c9e08a4493219f472",
+      "64bbce8c9e08a4493219f483"
+    ],
+    "downvotedPosts": [
+      "64bbce8c9e08a4493219f477",
+      "64bbce8c9e08a4493219f47a"
+    ],
+    "savedPosts": [
+      "64bbce8c9e08a4493219f483",
+      "64bbce8c9e08a4493219f47d"
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "64bbce8c9e08a4493219f460"
+    },
+    "user_id": 6,
+    "profile_pic": "Pochacco.png",
+    "name": "Pochacco",
+    "username": "u/pocchi",
+    "password": "password",
+    "bio": "Hindi gumana ang manifesting kaya gagamit na tayo ng dahas.",
+    "postsMade": [
+      "64bbce8c9e08a4493219f472"
+    ],
+    "upvotedPosts": [],
+    "downvotedPosts": [],
+    "savedPosts": [],
+    "__v": 0
+  }
+]

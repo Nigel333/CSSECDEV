@@ -1,0 +1,124 @@
+[
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a2f"
+        },
+        "author": "64bbce8c9e08a4493219f469",
+        "content": "I watched it for Rangoku. He's the best character in the show. Fight me.",
+        "comment_id": 0,
+        "parentPost": "64bbce8c9e08a4493219f472",
+        "parentComment": null,
+        "reply": [
+            "64bcd45ef98f5211d39c0a30"
+        ],
+        "upvotedBy":[
+            "64bbce8c9e08a4493219f46f"
+        ],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a30"
+        },
+        "author": "64bbce8c9e08a4493219f46f",
+        "content": "Sure, spell Rengoku.",
+        "comment_id": 1,
+        "parentPost": "64bbce8c9e08a4493219f472",
+        "parentComment": "64bcd45ef98f5211d39c0a2f",
+        "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[
+            "64bbce8c9e08a4493219f46f"
+        ],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a31"
+        },
+        "author": "64bbce8c9e08a4493219f463",
+        "content": "Yuck, Inosuke fans are the worst.",
+        "comment_id": 2,
+        "parentPost": "64bbce8c9e08a4493219f472",
+        "parentComment": null,
+        "reply": [
+            "64bcd45ef98f5211d39c0a32"
+        ],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a32"
+        },
+        "author": "64bbce8c9e08a4493219f46f",
+        "content": "Haters gonna hate~",
+        "comment_id": 3,
+        "parentPost": "64bbce8c9e08a4493219f472",
+        "parentComment": "64bcd45ef98f5211d39c0a31",
+        "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a33"
+        },
+        "author": "64bbce8c9e08a4493219f463",
+        "content": "Just do it my friend. I've been playing Genshin since launch and I've never spent a single cent on it. I'm currently AR 55 and I have 3 5-star characters and 2 5-star weapons. I'm not even a hardcore player. I just play for 1-2 hours a day. The game is very generous with its primogems and you can get a lot of free stuff from events. The only thing you need to do is to manage your resources well. Don't waste your primogems on the standard banner. Save them for the limited banners. Also, don't waste your fragile resin. Use them only when you need to. If you're not in a hurry to get to the endgame, you can just take your time and enjoy the game. There's no need to rush. The game is still in its early stages and there's a lot of content coming in the future. If you're a fan of open-world RPGs, you'll definitely enjoy Genshin. The game is beautiful and the story is great. The characters are also very lovable. I highly recommend it. I hope you give it another shot. Good luck and have fun!",
+        "comment_id": 4,
+        "parentPost": "64bbce8c9e08a4493219f477",
+        "parentComment": null,
+        "reply": [
+            "64bcd45ef98f5211d39c0a34"
+        ],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a34"
+        },
+        "author": "64bbce8c9e08a4493219f460",
+        "content": "Touch grass lol. Also, flex na ba 'yang 5-star characters mo? Haha! Inactive kong friend mas marami pang 5-star characters kesa sa'yo. Haha! #FlexLang #NoHate #JustSaying",
+        "comment_id": 5,
+        "parentPost": "64bbce8c9e08a4493219f477",
+        "parentComment": "64bcd45ef98f5211d39c0a33",
+        "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a35"
+        },
+        "author": "64bbce8c9e08a4493219f469",
+        "content": "Agreed. Kafka is the best. Kafka is love, Kafka is life.",
+        "comment_id": 6,
+        "parentPost": "64bbce8c9e08a4493219f47a",
+        "parentComment": null,
+        "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    },
+    {
+        "_id": {
+            "$oid": "64bcd45ef98f5211d39c0a36"
+        },
+        "author": "64bbce8c9e08a4493219f46c",
+        "content": "Personally, the best pokemon for me is Sceptile. It's a cool grass type pokemon in Minecraft. It's a good pokemon to use in battle because of its high speed and attack. It can also learn a lot of moves like Leaf Blade, Dragon Claw, and Earthquake. It's also a good pokemon to use in Minecraft because it can cut down trees with its Leaf Blade move.",
+        "comment_id": 7,
+        "parentPost": "64bbce8c9e08a4493219f47d",
+        "parentComment": null,
+        "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
+        "voteCtr": 0
+    }
+]

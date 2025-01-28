@@ -1,0 +1,106 @@
+<script src="/static/js/profile.js"></script>
+<script src="/static/js/post.js"></script>
+
+<!-- Profile Content -->
+<div class="row-content-container">
+    <div id="profile-container">
+        <div id="image-container">
+            <img src="/static/images/profile/{{currentUser.profile_pic}}" id="profile-pic">
+            <button id="change-image-btn"></button>
+        </div>
+        <h2 id="name">{{user.name}}</h2>
+        <h4 id="profile-username">{{currentUser.username}}</h4>
+        <p id="bio">{{{user.bio}}}</p>
+        <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='/edit'">
+        <!-- <div id="followers-container">
+            <img src="/static/images/icons/followers.png">
+            <p>{{{user.followers_info}}}</p>
+        </div> -->
+    </div>
+    <div id="overview-container">
+        <!-- Filter Buttons -->
+        <div id="filters-container">
+            {{#each filters}}
+            <button class="filter" data-filter="{{this}}">{{this}}</button>
+            {{/each}}
+        </div>
+        <hr id="filter-hr">
+
+        <!-- Posts -->
+        <div id="Posts-view">
+            <!-- Create a Post -->
+            <div class="user-post-container">
+                <img src="/static/images/profile/{{user.profile_pic}}" class="post-profile">
+                <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
+                <script>openCreatePost();</script>
+            </div>
+
+            <div class="posts-container">
+                {{#each user.postsMade}}
+                {{> post this}}
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Comments -->
+        <div id="Comments-view">
+            <div class="posts-container">
+                {{#each comments}}
+                {{> searchcomment this}}
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Upvotes -->
+        <div id="Upvoted-view">
+            {{#if upvoted}}
+            <div class="posts-container">
+                {{#each upvoted}}
+                {{> postUp this}}
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="empty-container">
+                <img src="/static/images/icons/empty.png" class="empty-icon">
+                <h2 class="empty-text">Looks like there's nothing here</h2>
+            </div>
+            {{/if}}
+        </div>
+
+        <!-- Downvotes -->
+        <div id="Downvoted-view">
+            {{#if downvoted}}
+            <div class="posts-container">
+                {{#each downvoted}}
+                {{> postDown this}}
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="empty-container">
+                <img src="/static/images/icons/empty.png" class="empty-icon">
+                <h2 class="empty-text">Looks like there's nothing here</h2>
+            </div>
+            {{/if}}
+        </div>
+
+        <!-- Saves -->
+        <div id="Saved-view">
+            {{#if saved}}
+            <div class="posts-container">
+                {{#each saved}}
+                {{> postSave this}}
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="empty-container">
+                <img src="/static/images/icons/empty.png" class="empty-icon">
+                <h2 class="empty-text">Looks like there's nothing here</h2>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<button class="scroll-up-button">
+    <img src="/static/images/icons/scroll.png" class="scroll-up">
+</button>

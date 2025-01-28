@@ -1,0 +1,24 @@
+<div class="top-user">
+    <img src="/static/images/profile/{{author.name}}.png" class="post-profile">
+    <div class="name-container">
+        <h5><a href="/profile/{{author.name}}">{{author.name}}</a></h5>
+        <p><a href="/profile/{{author.name}}">{{author.username}}</a></p>
+    </div>
+</div>
+<img src="/static/images/post/media/{{image}}" class="sample">
+<div class="top-post-text">
+    <a href="/view/{{post_id}}" class="post-clickable">
+        <h5>{{title}}</h5>
+    </a>
+
+</div>
+<div class="top-post-actions">
+    <a href="/view/{{id}}" class="post-clickable">
+        <button class="comment-button">
+            <img src="/static/images/post/comment.png" class="comment">
+        </button>
+    </a>
+    <button class="save-button">
+        <img src="/static/images/post/save.png" class="save">
+    </button>
+</div>

@@ -1,0 +1,60 @@
+<div class="post-container" id="{{post_id}}">
+    <div class="vote">
+        {{#if (getUpvoteStatus @root.upvoteStatusArray @index)}}
+        <button class="upvote-button">
+            <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
+        </button>
+        {{else}}
+        <button class="upvote-button">
+            <img src="/static/images/post/upvote.png" class="upvote">
+        </button>
+        {{/if}}
+        <p class="num-votes">{{voteCtr}}</p>
+        {{#if (getDownvoteStatus @root.downvoteStatusArray @index)}}
+        <button class="downvote-button">
+            <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
+        </button>
+        {{else}}
+        <button class="downvote-button">
+            <img src="/static/images/post/downvote.png" class="downvote">
+        </button>
+        {{/if}}
+    </div>
+    <div class="content">
+        <div class="post-content">
+            <a href="/view/{{post_id}}" class="post-clickable">
+                <h4 class="title" id="title-{{post_id}}">{{title}}</h4>
+            </a>
+            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a> <span id="grey-text">•
+                    Posted 32 days ago</span> </p>
+            <a href="/view/{{post_id}}" class="post-clickable">
+                <p class="text" id="text-{{post_id}}">{{{content}}}</p>
+                {{#if image}}
+                <img src="/static/images/post/media/{{image}}" class="sample" id="sample-{{post_id}}">
+                {{/if}}
+            </a>
+        </div>
+        <div class="post-actions">
+            {{#if (isEqual @root.currentUser.username author.username)}}
+            <button class="edit-button" onclick="openEditPopup('{{post_id}}')">
+                <script>openEditPost({{ post_id }});</script>
+                <img src="/static/images/post/edit.png" class="edit">
+            </button>
+            <p class="edit-post">Edit</p>
+            <button class="delete-button" id="delete-{{post_id}}">
+                <img src="/static/images/post/delete.png" class="delete">
+            </button>
+            <p class="delete-post">Delete</p>
+            {{/if}}
+            <a href="/view/{{post_id}}" class="post-clickable">
+                <button class="comment-button">
+                    <img src="/static/images/post/comment.png" class="comment">
+                </button>
+            </a>
+            <p class="comment-num">{{comCtr}} Comments</p>
+            <button class="save-button">
+                <img src="/static/images/post/clicked/c-saved.png" class="save">
+            </button>
+        </div>
+    </div>
+</div>

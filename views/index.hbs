@@ -1,0 +1,135 @@
+<script src="/static/js/post.js"></script>
+
+<div class="column-content-container">
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div id="index-carousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#index-carousel" data-slide-to="1"></li>
+                <li data-target="#index-carousel" data-slide-to="2"></li>
+                <li data-target="#index-carousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="frame">
+                        <img src="/static/images/carousel/home/1.png" alt="main-pic">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="/static/images/carousel/home/2.png" alt="pic-2">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="/static/images/carousel/home/3.png" alt="pic-3">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="/static/images/carousel/home/4.png" alt="pic-4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#index-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#index-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="postpoll-container">
+        <!-- left post -->
+        <div class="left-post">
+            <!-- Create a Post -->
+            <div class="user-post-container">
+                <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
+                <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
+                <script>openCreatePost();</script>
+            </div>
+
+            <!-- Posts -->
+            <div class="posts-container">
+                {{#each posts}}
+                {{> post this}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="polls-container">
+
+            <!-- Check This Out -->
+            <h3>Top Contributors</h3>
+            <hr>
+            <div class="check-container">
+                {{#each topusers}}
+                {{> topUsers}}
+                {{/each}}
+            </div>
+
+            <!-- Top Post -->
+            <h3>Top Post</h3>
+            <hr>
+            <div class="top-post-container">
+                {{> topPost toppost}}
+            </div>
+
+            <!-- Waifus of the Month -->
+            <h3><a href="/static/polls.html" id="poll-link">Waifus of the Month</a></h3>
+            <hr>
+            <div class="waifus-container">
+                <div class="waifu">
+                    <img src="/static/images/waifus/kafka.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Kafka</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="/static/images/waifus/makima.jpeg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Makima</h4>
+                        <p>Chainsaw Man</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="/static/images/waifus/himeko.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Himeko</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="/static/images/waifus/esdeath.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Esdeath</h4>
+                        <p>Akame Ga Kill!</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="/static/images/waifus/megumi.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Megumi</h4>
+                        <p>Shokugeki no Souma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<button class="scroll-up-button">
+    <img src="/static/images/icons/scroll.png" class="scroll-up">
+</button>

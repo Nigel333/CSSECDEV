@@ -1,0 +1,54 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="icon" href="/static/images/icons/icon.png" type="image/png">
+    <script src="/static/js/register.js"></script>
+    <link rel="stylesheet" href="/static/style/styles.css">
+
+</head>
+
+<body id="register-body">
+
+    <!-- Header Div -->
+    <header class="register-header">
+        <a href="/">
+            <img src="/static/images/logo/logo2.png" id="register-logo">
+        </a>
+        <div class="register-container-signin">
+            <p>Already have an account?</p>
+            <a href="/signin">Sign In</a>
+        </div>
+    </header>
+
+    <!-- Registration Form Div -->
+    <div class="register-container">
+        <form class="registration-form">
+            <div class="registration-content">
+                <div class="registration-left">
+                    <h1 class="registration-title">Register</h1>
+                    <p>Enter your username</p>
+                    <input type="text" id="username-input" placeholder="Username" class="register-textbox" required><br>
+                    <p>Create a password</p>
+                    <input type="password" id="password-input" placeholder="Password" class="register-textbox"
+                        required><br>
+                    <input type="password" id="confirm-password-input" placeholder="Confirm Password"
+                        class="register-textbox" required>
+                    <span id="password-match-icon"></span><br>
+                    <div id="warning" style="color: yellow;"></div>
+                </div>
+                <div class="registration-right">
+                    <img src="/static/images/icons/girl.png" id="girl">
+                </div>
+            </div>
+
+            <div class="registration-actions">
+                <button id="register-button" type="button">
+                    <img src="/static/images/icons/arrow.png" id="arrow">
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

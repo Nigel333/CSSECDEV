@@ -1,0 +1,99 @@
+<div class="view-post-container" id="{{post_id}}">
+    <div class="vote">
+        {{#if @root.upvoteStatus}}
+        <button class="upvote-button">
+            <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
+        </button>
+        {{else}}
+        <button class="upvote-button">
+            <img src="/static/images/post/upvote.png" class="upvote">
+        </button>
+        {{/if}}
+        <p class="num-votes">{{voteCtr}}</p>
+        {{#if @root.downvoteStatus}}
+        <button class="downvote-button">
+            <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
+        </button>
+        {{else}}
+        <button class="downvote-button">
+            <img src="/static/images/post/downvote.png" class="downvote">
+        </button>
+        {{/if}}
+    </div>
+    <div class="content">
+        <div class="post-content">
+            <h4 class="title">{{title}}</h4>
+            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a> <span id="grey-text">•
+                    Posted 32 days ago</span></p>
+            <p class="text">{{{content}}}</p>
+            {{#if image}}
+            <img src="/static/images/post/media/{{image}}" class="sample">
+            {{/if}}
+            {{#if edited}}
+            <p class="post-edited" id="post-edited-{{post_id}}" data-edited="true">Edited</p>
+            {{else}}
+            <p class="post-edited" id="post-edited-{{post_id}}" data-edited="false"></p>
+            {{/if}}
+        </div>
+        <div class="post-actions">
+            {{#if (isEqual @root.currentUser.username author.username)}}
+            <button class="edit-button" onclick="openEditPopup('{{post_id}}')">
+                <img src="/static/images/post/edit.png" class="edit">
+            </button>
+            <p class="edit-post">Edit</p>
+            <button class="delete-button" id="delete-{{post_id}}">
+                <img src="/static/images/post/delete.png" class="delete">
+            </button>
+            <p class="delete-post">Delete</p>
+            {{/if}}
+            <button class="comment-button">
+                <img src="/static/images/post/comment.png" class="comment">
+            </button>
+            <p class="comment-num">{{comCtr}} Comments</p>
+            {{#if @root.saveStatus}}
+            <button class="save-button">
+                <img src="/static/images/post/clicked/c-saved.png" class="save">
+            </button>
+            {{else}}
+            <button class="save-button">
+                <img src="/static/images/post/save.png" class="save">
+            </button>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!-- Edit Post Popup -->
+<div id="edit-overlay"></div>
+<div id="edit-popup">
+    <span id="edit-close" onclick="closeEditPopup()">✕</span>
+    <h2>Edit a post</h2>
+    <div id="edit-title-container">
+        <textarea id="edit-title" placeholder="Title" maxlength="50" oninput="checkEditTitleLength()"></textarea>
+        <span id="edit-title-count">0/50</span>
+    </div>
+
+    <div id="edit-toolbar">
+        <button class="edit-toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
+        <button class="edit-toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
+        <button class="edit-toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
+        <button class="edit-toolbar-buttons" onclick="makeBullet()"><img src="/static/images/icons/bullet.png"
+                alt="Bullet Form"></button>
+        <button class="edit-toolbar-buttons" onclick="insertImage()"><img src="/static/images/icons/image.png"
+                alt="Insert Image"></button>
+    </div>
+
+    <div id="edit-content" contenteditable="true" placeholder="Content" style="border: 1px solid #ccc; padding: 5px;">
+    </div>
+    <br>
+
+    <div>
+        <label for="edit-url">URL:</label>
+        <input type="text" id="edit-url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
+    </div>
+    <br>
+
+    <div class="edit-actions">
+        <button class="edit-popup-submit" onclick="editPost('{{post_id}}')">Submit</button>
+    </div>
+</div>

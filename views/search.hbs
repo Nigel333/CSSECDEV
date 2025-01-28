@@ -1,0 +1,52 @@
+<script src="/static/js/search.js"></script>
+
+<div class="column-content-container">
+    <div class="search-title">
+        <h2>Search results... <span id="search-query">{{query}}</span></h2>
+    </div>
+    <div class="search-overview">
+
+        <!-- Filter Buttons -->
+        <div class="search-filters">
+            <h3>Filter by</h3>
+            {{#each search_filters}}
+            <button class="search-filter" data-filter="search-{{this}}">{{this}}</button>
+            {{/each}}
+        </div>
+
+        <!-- Search Content -->
+        <div class="search-finds">
+
+            <!-- Search Posts -->
+            <div id="search-Posts-view">
+                <div class="posts-container">
+                    {{#each posts}}
+                    {{> post this}}
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Search Comments -->
+            <div id="search-Comments-view">
+                <div class="posts-container">
+                    {{#each comments}}
+                    {{> searchcomment this}}
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Search Users -->
+            <div id="search-Users-view">
+                <div class="posts-container">
+                    {{#each users}}
+                    {{> searchuser this}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="scroll-up-button">
+    <img src="/static/images/icons/scroll.png" class="scroll-up">
+</button>
