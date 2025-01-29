@@ -33,6 +33,8 @@ router.post("/signinFunc", (req, res) => {
               }
 
               if (isMatch) {
+                  req.session.currentUser = user;
+                  console.log(req.session.currentUser);
                   return res.status(200).json({ message: "Login successful" });
               } else {
                   return res.status(401).json({ message: "Invalid username or password" });
@@ -85,11 +87,95 @@ router.post('/registerFunc', async (req, res) => {
   }
 });
 
-router.get("/home", (req, res) => {
-  res.render("index", { 
-    title: "Home", 
+router.get("/home", async (req, res) => {
+  try {
+    // Fetch posts and their related data using JOINs
+    const postsQuery = `
+      SELECT 
+        p.post_id, p.title, p.content, p.voteCtr, p.comCtr, 
+        u.user_id AS author_id, u.username AS authorname,
+        IF(l.post_id IS NOT NULL, 1, 0) AS upvoted,
+        IF(d.post_id IS NOT NULL, 1, 0) AS downvoted,
+        IF(s.post_id IS NOT NULL, 1, 0) AS saved
+      FROM post p
+      JOIN user u ON p.author = u.user_id
+      LEFT JOIN likedBy l ON p.post_id = l.post_id AND l.user_id = ?
+      LEFT JOIN dislikedBy d ON p.post_id = d.post_id AND d.user_id = ?
+      LEFT JOIN madeBy s ON p.post_id = s.post_id AND s.user_id = ?
+    `;
+    const posts = await db.promise().query(postsQuery, [
+      req.session.currentUser?.user_id || 0,
+      req.session.currentUser?.user_id || 0,
+      req.session.currentUser?.user_id || 0,
+    ]);
+
+    // Fetch users and calculate contributions
+    const usersQuery = `
+      SELECT 
+        u.user_id, u.username, u.profile_pic, u.bio,
+        COUNT(DISTINCT p.post_id) AS postsMade,
+        COUNT(DISTINCT c.comment_id) AS commentsMade,
+        COUNT(DISTINCT l.post_id) AS upvotedPosts,
+        COUNT(DISTINCT d.post_id) AS downvotedPosts
+      FROM user u
+      LEFT JOIN post p ON u.user_id = p.author
+      LEFT JOIN comment c ON u.user_id = c.author
+      LEFT JOIN likedBy l ON u.user_id = l.user_id
+      LEFT JOIN dislikedBy d ON u.user_id = d.user_id
+      GROUP BY u.user_id
+    `;
+    const users = await db.promise().query(usersQuery);
+
+    // Process posts to get sorted lists
+    const upvoteStatusArray = posts[0].map(post => ({
+      post: post,
+      upvoteStatus: post.upvoted ? 1 : 0,
+    }));
+    const downvoteStatusArray = posts[0].map(post => ({
+      post: post,
+      downvoteStatus: post.downvoted ? 1 : 0,
+    }));
+    const saveStatusArray = posts[0].map(post => ({
+      post: post,
+      saveStatus: post.saved ? 1 : 0,
+    }));
+
+    // Sort posts and status arrays by voteCtr
+    upvoteStatusArray.sort((a, b) => b.post.voteCtr - a.post.voteCtr);
+    downvoteStatusArray.sort((a, b) => b.post.voteCtr - a.post.voteCtr);
+    saveStatusArray.sort((a, b) => b.post.voteCtr - a.post.voteCtr);
+    posts[0].sort((a, b) => b.voteCtr - a.voteCtr);
+
+    // Process users to calculate contributions and get top 3
+    const topUsers = users[0].map(user => ({
+      ...user,
+      contributions:
+        (user.postsMade || 0) +
+        (user.commentsMade || 0) +
+        (user.upvotedPosts || 0) +
+        (user.downvotedPosts || 0),
+    }));
+    topUsers.sort((a, b) => b.contributions - a.contributions);
+    const top3Users = topUsers.slice(0, 3);
+    console.log(top3Users);
+    
+    // Render the page with the fetched data
+    res.render("index", {
+      title: "Home",
+      posts: posts[0],
+      toppost: posts[0][0],
+      topusers: top3Users,
+      currentUser: req.session.currentUser,
+      upvoteStatusArray,
+      downvoteStatusArray,
+      saveStatusArray,
     });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 
 // Fetch all users
 router.get("/users", (req, res) => {
@@ -104,6 +190,11 @@ router.get("/users", (req, res) => {
 });
 
 router.get('/signin', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+        return res.status(500).json({ message: "Error logging out" });
+    }
+  });
   res.render('signin', {
     noLayout: true
   });

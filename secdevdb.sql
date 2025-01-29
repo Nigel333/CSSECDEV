@@ -1,4 +1,4 @@
-DROP SCHEMA mydb;
+-- DROP SCHEMA mydb;
 
 -- MySQL Workbench Forward Engineering
 
@@ -24,7 +24,7 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `profile_pic` VARCHAR(45) NOT NULL DEFAULT '/static/images/profile/Default.png',
+  `profile_pic` VARCHAR(45) NOT NULL DEFAULT 'Default.png',
   `username` VARCHAR(45) NOT NULL DEFAULT 'user',
   `password` LONGTEXT NOT NULL,
   `bio` LONGTEXT NULL,
@@ -176,6 +176,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 use mydb;
 SELECT * FROM user;
-INSERT INTO user VALUES (1, "temp" , "nigel", "smth", null);
+SELECT * FROM post;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;
+INSERT INTO post VALUES(1, 'helo', 2, 'wasup guys welcome to my channel', null, 3, 0);
+INSERT INTO post VALUES(2, 'test', 1, 'lolololol', null, 3, 0);

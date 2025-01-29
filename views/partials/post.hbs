@@ -26,7 +26,7 @@
             <a href="/view/{{post_id}}" class="post-clickable">
                 <h4 class="title" id="title-{{post_id}}">{{title}}</h4>
             </a>
-            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a>
+            <p class="author">by <a href="/profile/{{author_name}}">{{author_name}}</a>
                 <span id="grey-text">• Posted 32 days ago</span>
             </p>
             <a href="/view/{{post_id}}" class="post-clickable">
@@ -42,7 +42,7 @@
             {{/if}}
         </div>
         <div class="post-actions">
-            {{#if (isEqual @root.currentUser.username author.username)}}
+            {{#if (isEqual @root.currentUser.username author_name)}}
             <button class="edit-button" onclick="openEditPopup('{{post_id}}')">
                 <img src="/static/images/post/edit.png" class="edit">
             </button>
