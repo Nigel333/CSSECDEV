@@ -23,19 +23,29 @@
 
     <!-- Registration Form Div -->
     <div class="register-container">
-        <form class="registration-form">
+        <form class="registration-form" enctype="multipart/form-data">
             <div class="registration-content">
                 <div class="registration-left">
                     <h1 class="registration-title">Register</h1>
                     <p>Enter your username</p>
                     <input type="text" id="username-input" placeholder="Username" class="register-textbox" required><br>
+
+                    <p>Enter your email</p>
+                    <input type="email" id="email-input" placeholder="Email" class="register-textbox" required><br>
+
+                    <p>Enter your phone number</p>
+                    <input type="text" id="phone-input" placeholder="Phone Number" class="register-textbox" required><br>
+
                     <p>Create a password</p>
-                    <input type="password" id="password-input" placeholder="Password" class="register-textbox"
-                        required><br>
-                    <input type="password" id="confirm-password-input" placeholder="Confirm Password"
-                        class="register-textbox" required>
+                    <input type="password" id="password-input" placeholder="Password" class="register-textbox" required><br>
+
+                    <input type="password" id="confirm-password-input" placeholder="Confirm Password" class="register-textbox" required>
                     <span id="password-match-icon"></span><br>
                     <div id="warning" style="color: yellow;"></div>
+
+                    <p>Upload a profile picture (optional)</p>
+                    <input type="file" id="profile-pic-input" class="register-textbox"><br>
+
                 </div>
                 <div class="registration-right">
                     <img src="/static/images/icons/girl.png" id="girl">
@@ -50,5 +60,3 @@
         </form>
     </div>
 </body>
-
-</html>

@@ -50,10 +50,10 @@ router.post("/signinFunc", (req, res) => {
 // POST route for user registration
 router.post('/registerFunc', async (req, res) => {
   try {
-      const { username, password } = req.body;
+      const { username, password, email, phone } = req.body;
 
       // Validate input
-      if (!username || !password) {
+      if (!username || !password || !email || !phone) {
           return res.status(400).json({ message: 'Username and password are required.' });
       }
 
@@ -78,8 +78,8 @@ router.post('/registerFunc', async (req, res) => {
 
       // Insert new user into the database
       const [result] = await db.promise().query(
-          'INSERT INTO user (username, password) VALUES (?, ?)',
-          [username, hashedPassword]
+          'INSERT INTO user (username, password, email, phone_number) VALUES (?, ?, ?, ?)',
+          [username, hashedPassword, email, phone]
       );
       
       // Respond with success message
@@ -300,6 +300,7 @@ router.post("/post", async (req, res) => {
   }
 });
 
+// BROKEN for now
 router.get("/main-profile", async (req, res) => {
   try {
     const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
@@ -310,20 +311,21 @@ router.get("/main-profile", async (req, res) => {
       [currentUsername]
     );
     
-    console.log("DB Query Result:", result);
+    //console.log("DB Query Result:", result);
     
     // Fetch user details
     const [user] = await db.execute(
       `SELECT user_id, username, profile_pic, bio FROM user WHERE username = ?`,
       [currentUsername]
     );
-
+    
     if (!user || user.length === 0) {
       return res.status(404).json({ error: "User not found" });
     }
-
-    const userId = user[0].user_id;
-
+    
+    const userId = user[0].user_id; // Access the first row (since it's an array of rows)
+    console.log("User ID:", userId); // Logs the correct user ID
+    
     // Fetch user's posts
     const [postsMade] = await db.execute(
       `SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 

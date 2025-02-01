@@ -24,10 +24,12 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `profile_pic` VARCHAR(45) NOT NULL DEFAULT 'Default.png',
+  `profile_pic` VARCHAR(4255) NOT NULL DEFAULT 'Default.png',
   `username` VARCHAR(45) NOT NULL DEFAULT 'user',
   `password` LONGTEXT NOT NULL,
   `bio` LONGTEXT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone_number` INT NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE)
 ENGINE = InnoDB;
