@@ -1,4 +1,4 @@
--- DROP SCHEMA mydb;
+DROP SCHEMA mydb;
 
 -- MySQL Workbench Forward Engineering
 
@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post` (
   `voteCtr` INT NULL DEFAULT 0,
   `comCtr` INT NULL,
   PRIMARY KEY (`post_id`),
-  UNIQUE INDEX `author_UNIQUE` (`author` ASC) VISIBLE,
   UNIQUE INDEX `post_id_UNIQUE` (`post_id` ASC) VISIBLE,
   CONSTRAINT `user_post`
     FOREIGN KEY (`author`)
@@ -177,7 +176,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 use mydb;
 SELECT * FROM user;
 SELECT * FROM post;
+SELECT * FROM comment;
+DELETE FROM post WHERE author > 0;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;
 INSERT INTO post VALUES(1, 'helo', 2, 'wasup guys welcome to my channel', null, 3, 0);
-INSERT INTO post VALUES(2, 'test', 1, 'lolololol', null, 3, 0);
+INSERT INTO post VALUES(2, 'test', 3, 'lolololol', null, 3, 0);

@@ -23,11 +23,11 @@
     <div class="content">
         <div class="post-content">
             <h4 class="title">{{title}}</h4>
-            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a> <span id="grey-text">•
+            <p class="author">by <a href="/profile/{{author_name}}">{{author_name}}</a> <span id="grey-text">•
                     Posted 32 days ago</span></p>
             <p class="text">{{{content}}}</p>
             {{#if image}}
-            <img src="/static/images/post/media/{{image}}" class="sample">
+            <img src="/static/images/post/media/{{author_pic}}" class="sample">
             {{/if}}
             {{#if edited}}
             <p class="post-edited" id="post-edited-{{post_id}}" data-edited="true">Edited</p>
@@ -36,7 +36,7 @@
             {{/if}}
         </div>
         <div class="post-actions">
-            {{#if (isEqual @root.currentUser.username author.username)}}
+            {{#if (isEqual @root.currentUser.username author_name)}}
             <button class="edit-button" onclick="openEditPopup('{{post_id}}')">
                 <img src="/static/images/post/edit.png" class="edit">
             </button>

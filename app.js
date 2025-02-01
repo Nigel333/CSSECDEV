@@ -39,7 +39,7 @@ app.engine(
         return status ? status.saveStatus : 0;
       },
       isEqual: function (a, b) {
-        console.log(a, b);
+        //console.log(a, b);
         return a === b;
       },
     },
