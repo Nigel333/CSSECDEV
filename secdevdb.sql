@@ -24,12 +24,12 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `profile_pic` VARCHAR(4255) NOT NULL DEFAULT 'Default.png',
+  `profile_pic` VARCHAR(45) NOT NULL DEFAULT 'Default.png',
   `username` VARCHAR(45) NOT NULL DEFAULT 'user',
   `password` LONGTEXT NOT NULL,
   `bio` LONGTEXT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `phone_number` INT NOT NULL,
+  `email` VARCHAR(255) NOT NULL DEFAULT 'default@gmail.com',
+  `phone_number` BIGINT(255) UNSIGNED NOT NULL DEFAULT '00000000000',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -182,5 +182,5 @@ SELECT * FROM comment;
 DELETE FROM post WHERE author > 0;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;
-INSERT INTO post VALUES(1, 'helo', 2, 'wasup guys welcome to my channel', null, 3, 0);
+INSERT INTO post VALUES(1, 'helo', 1, 'wasup guys welcome to my channel', null, 3, 0);
 INSERT INTO post VALUES(2, 'test', 3, 'lolololol', null, 3, 0);

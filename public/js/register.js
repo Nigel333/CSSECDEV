@@ -1,4 +1,3 @@
-const e = require("express");
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -11,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   /* Declaration of Variables */
   const usernameInput = document.getElementById('username-input');
   const passwordInput = document.getElementById('password-input');
-  const email = document.getElementById('email-input');
-  const phone = document.getElementById('phone-input');
+  const emailInput = document.getElementById('email-input');
+  const phoneInput = document.getElementById('phone-input');
   const confirmPasswordInput = document.getElementById('confirm-password-input');
   const passwordMatchIcon = document.getElementById('password-match-icon');
   const warning = document.getElementById('warning');
@@ -40,9 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const email = emailInput.value;
       const phone = phoneInput.value;
 
-
       if (username === '' || password === '' || confirmPasswordInput.value === '' || email === '' || phone === '') {
-        warning.textContent = 'Username or password cannot be empty';
+        warning.textContent = 'All fields are required!'; 
         return; // Exit the function if username or password is empty
       }
 
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const jString = JSON.stringify({ username, password, email, phone });
-      console.log('Sending request:', jString);
+
       // Send the registration data to the server
       const response = await fetch('/registerFunc', {
         method: 'POST',
@@ -70,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       });
 
-      console.log('Response received:', response); // Debugging
       // Check the response status to see if the registration was successful
       if (response.status === 200) {
         console.log("Registration successful");
@@ -82,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (response.status === 500) {
         warning.textContent = 'Username already exists! Try Again.';
         // Show an error message or perform other actions for a failed registration attempt
-      } else {
-        warning.textContent = 'An error occurred! Try Again.';
+      } else if (response.status === 600) {
+        warning.textContent = 'ERROR';
         // Show an error message or perform other actions for a failed registration attempt
       }
     } catch (error) {

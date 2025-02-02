@@ -50,11 +50,10 @@ router.post("/signinFunc", (req, res) => {
 // POST route for user registration
 router.post('/registerFunc', async (req, res) => {
   try {
-      const { username, password, email, phone } = req.body;
-
+      const { username, password, email, phone} = req.body;
       // Validate input
       if (!username || !password || !email || !phone) {
-          return res.status(400).json({ message: 'Username and password are required.' });
+          return res.status(400).json({ message: 'All fields are required.' });
       }
 
       // Check if the username already exists
@@ -89,7 +88,7 @@ router.post('/registerFunc', async (req, res) => {
       });
   } catch (error) {
       console.error('Error registering user:', error);
-      return res.status(400).json({ message: 'An error occurred while registering the user.' });
+      return res.status(600).json({ message: 'An error occurred while registering the user.' });
   }
 });
 

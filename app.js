@@ -42,6 +42,9 @@ app.engine(
         //console.log(a, b);
         return a === b;
       },
+      printsmth: function (a) {
+        console.log(a);
+      },
     },
   })
 );
