@@ -3,6 +3,29 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const bcrypt = require("bcrypt");
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const uploadDir = path.join(__dirname, '..', 'public', 'images', 'profile');
+
+// Ensure the directory exists
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      const username = req.body.username;
+      cb(null, `${username}.png`);
+    }
+});
+
+const upload = multer({ storage });
+
 
 // Define your routes
 router.get("/", (req, res) => {
@@ -48,11 +71,12 @@ router.post("/signinFunc", (req, res) => {
 });
 
 // POST route for user registration
-router.post('/registerFunc', async (req, res) => {
+router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
   try {
       const { username, password, email, phone} = req.body;
+      const profilepic = `${username}.png`;
       // Validate input
-      if (!username || !password || !email || !phone) {
+      if (!username || !password || !email || !phone || !profilepic) {
           return res.status(400).json({ message: 'All fields are required.' });
       }
 
@@ -71,14 +95,14 @@ router.post('/registerFunc', async (req, res) => {
 
 
       
-
+      //console.log('Temporary file path:', req.file.path);
       // Hash the password before storing it in the database
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Insert new user into the database
       const [result] = await db.promise().query(
-          'INSERT INTO user (username, password, email, phone_number) VALUES (?, ?, ?, ?)',
-          [username, hashedPassword, email, phone]
+          'INSERT INTO user (username, password, email, phone_number, profile_pic) VALUES (?, ?, ?, ?, ?)',
+          [username, hashedPassword, email, phone, profilepic]
       );
       
       // Respond with success message
