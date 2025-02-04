@@ -304,13 +304,11 @@ router.post("/post", async (req, res) => {
       console.log("New post inserted with post_id:", result.insertId);
 
       // Update the user's post count (if necessary)
-      const updateUserQuery = `
-        UPDATE user 
-        SET postsMade = postsMade + 1
-        WHERE user_id = ?;
+      const insertMadeByQuery = `
+        INSERT INTO madeby (user_id, post_id, comment_id) VALUES (?, ?, NULL);
       `;
 
-      await db.promise().query(updateUserQuery, [currentUser.user_id]);
+      await db.promise().query(insertMadeByQuery, [currentUser.user_id, result.insertId]);
 
       // Respond with the new post's ID
       res.status(200).json({ post_id: result.insertId });
@@ -327,20 +325,19 @@ router.post("/post", async (req, res) => {
 router.get("/main-profile", async (req, res) => {
   try {
     const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-    const currentUsername = req.session.currentUser.username;
+    const currentUser = req.session.currentUser
 
-    const result = await db.execute(
-      `SELECT user_id, username, profile_pic, bio FROM user WHERE username = ?`,
-      [currentUsername]
-    );
+    const requestUserQuery = `
+        SELECT * FROM user WHERE user_id = ?
+        `;
+
+    const [user] = await db.promise().query(requestUserQuery, [
+      currentUser.user_id,
+    ]);
     
-    //console.log("DB Query Result:", result);
     
-    // Fetch user details
-    const [user] = await db.execute(
-      `SELECT user_id, username, profile_pic, bio FROM user WHERE username = ?`,
-      [currentUsername]
-    );
+    console.log("DB Query Result:", user);
+
     
     if (!user || user.length === 0) {
       return res.status(404).json({ error: "User not found" });
@@ -350,47 +347,50 @@ router.get("/main-profile", async (req, res) => {
     console.log("User ID:", userId); // Logs the correct user ID
     
     // Fetch user's posts
-    const [postsMade] = await db.execute(
-      `SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
+    const requestPostsQuery = `
+      SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
        FROM post p 
        JOIN user u ON p.author = u.user_id
        WHERE p.author = ? 
-       ORDER BY p.post_id DESC`, 
-      [userId]
-    ) || [];
+       ORDER BY p.post_id DESC
+       `;
+    const [postsMade] = await db.promise().query(requestPostsQuery, [userId]) || [];
 
     // Fetch user's comments
-    const [comments] = await db.execute(
-      `SELECT c.comment_id, c.content, c.parent_post, u.username AS author, p.title AS post_title
+    const requestCommentsQuery = `
+       SELECT c.comment_id, c.content, c.parent_post, u.username AS author, p.title AS post_title
        FROM comment c
        JOIN user u ON c.author = u.user_id
        JOIN post p ON c.parent_post = p.post_id
        WHERE c.author = ? 
-       ORDER BY c.comment_id DESC`,
-      [userId]
-    ) || [];
+       ORDER BY c.comment_id DESC
+       `;
+    
+    const [comments] = await db.promise().query(requestCommentsQuery, [userId]) || [];
 
     // Fetch upvoted posts
-    const [upvotedPosts] = await db.execute(
-      `SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
+    const requestUpvotedPostsQuery = `
+       SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
        FROM post p 
        JOIN user u ON p.author = u.user_id
-       JOIN upvote up ON up.post_id = p.post_id
-       WHERE up.user_id = ?`,
-      [userId]
-    ) || [];
+       JOIN likedby up ON up.post_id = p.post_id
+       WHERE up.user_id = ?
+      `;
+   
+    const [upvotedPosts] = await db.promise().query(requestUpvotedPostsQuery, [userId]) || [];
 
     // Fetch downvoted posts
-    const [downvotedPosts] = await db.execute(
-      `SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
+    const requestDownvotedPostsQuery = `
+       SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
        FROM post p 
        JOIN user u ON p.author = u.user_id
-       JOIN downvote d ON d.post_id = p.post_id
-       WHERE d.user_id = ?`,
-      [userId]
-    ) || [];
+       JOIN dislikedby d ON d.post_id = p.post_id
+       WHERE d.user_id = ?
+       `;
 
-    // Fetch saved posts
+    const [downvotedPosts] = await db.promise().query(requestDownvotedPostsQuery, [userId]) || [];
+    
+    /* Fetch saved posts
     const [savedPosts] = await db.execute(
       `SELECT p.post_id, p.title, p.content, p.image, p.voteCtr, p.comCtr, u.username AS author 
        FROM post p 
@@ -400,6 +400,7 @@ router.get("/main-profile", async (req, res) => {
       [userId]
     ) || [];
 
+    */
     res.render("main-profile", {
       title: "My Profile",
       user: user[0],
@@ -407,7 +408,7 @@ router.get("/main-profile", async (req, res) => {
       comments: comments,
       upvoted: upvotedPosts,
       downvoted: downvotedPosts,
-      saved: savedPosts,
+      //saved: savedPosts,
       filters: filters,
       currentUser: req.session.currentUser
     });

@@ -7,6 +7,7 @@ const session = require('express-session');
 const app = express();
 
 // MySQL Database Connection
+// change the .env file as well
 const db = mysql.createConnection({
   host: "localhost",
   user: "root", // Replace with your MySQL username
