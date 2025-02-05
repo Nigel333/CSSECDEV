@@ -48,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
                 // Parse the JSON response to access the error message
                 const errorData = await response.json();
-                warning.textContent = errorData.message; // Set the warning to the error message
+                warning.textContent = errorData.message ; // Set the warning to the error message
                 usernameInput.value = '';
                 passwordInput.value = '';
                 throw new Error('Request failed.');
             }
-
+            
             const responseData = await response.json();
             console.log(responseData.message); // Sign-in successful
 

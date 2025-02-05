@@ -58,6 +58,27 @@ function findPepperedPassword(password, salt, db){
   return false;
 }
 
+//check file type 
+function checkValidFileType(file){
+  //allowed extensions
+  const filetypes = /jpeg|jpg|png/;
+  //check extension
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  //check mimetype
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidEmail(email) {
+  const regex = /\w+@\w+.(\w+)|(\w+)$/;
+  return regex.test(email);
+}
+
 // -----------------------------------------
 
 // Define your routes
@@ -85,7 +106,7 @@ router.post("/signinFunc", (req, res) => {
           var asta = findPepperedPassword(password, user.salt, user.password);
           if(asta == false){
             console.error("Error comparing passwords:", err);
-            return res.status(500).json({ error: "username or password is incorrect!" });
+            return res.status(500).json({ message: "username or password is incorrect!" });
           }
           if (asta == true) {
             req.session.currentUser = user;
@@ -104,6 +125,11 @@ router.post("/signinFunc", (req, res) => {
 router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
   try {
       const { username, password, email, phone} = req.body;
+
+      if (checkValidFileType(req.file) == false){
+        return res.status(400).json({ message: 'Invalid file type. Please upload a valid image file.'});
+      }
+      
       const profilepic = `${username}.png`;
       // Validate input
       if (!username || !password || !email || !phone || !profilepic) {
@@ -484,6 +510,12 @@ router.get("/profile", (req, res) => {
   res.render("profile", { title: "User Profile", message: "Welcome to your profile" });
 });
 
+router.get('/featured', async (req, res) => {
+  res.render('wip', {
+    title: 'Featured',
+  });
+
+});
 router.get('/polls', async (req, res) => {
   res.render('polls', {
     title: 'Polls',
