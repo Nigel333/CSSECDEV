@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `profile_pic` VARCHAR(45) NOT NULL DEFAULT 'Default.png',
   `username` VARCHAR(45) NOT NULL DEFAULT 'user',
   `password` LONGTEXT NOT NULL,
+  `salt` VARCHAR(20) NOT NULL,
   `bio` LONGTEXT NULL,
   `email` VARCHAR(255) NOT NULL DEFAULT 'default@gmail.com',
   `phone_number` BIGINT(255) UNSIGNED NOT NULL DEFAULT '00000000000',

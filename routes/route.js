@@ -6,7 +6,8 @@ const bcrypt = require("bcrypt");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const crypto = require("crypto");
+const digitAvail = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
 const uploadDir = path.join(__dirname, '..', 'public', 'images', 'profile');
 
 // Ensure the directory exists
@@ -26,6 +27,38 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// ----------------------------------------- Functions
+// generates characters aA-zZ, 0-9, and _- of length
+function saltbae(length){
+  var s =[];
+  var digits = digitAvail;
+  for (var i = 0; i < length; i++){
+    s[i] = digits.substr(Math.floor(Math.random()*digits.length - 1), 1);
+  }
+  return s.join("");
+}
+
+// hash passwords
+function hashbrown(password, salt, pepper){
+  var hashbuff = crypto.pbkdf2Sync(password+pepper, salt, 10000, 64, 'sha512');
+  return hashbuff.toString('hex').slice(0, 50);
+}
+
+//iterate through digits avail for pepper
+function findPepperedPassword(password, salt, db){
+  var pepper = "";
+  for (var i = 0; i < digitAvail.length; i++){
+    pepper = digitAvail.substr(i, 1);
+    //console.log("Pepper: " + pepper+"  " + hashbrown(password, salt, pepper));
+    if (hashbrown(password, salt, pepper) == db){
+      //correct password
+      return true;
+    }
+  }
+  return false;
+}
+
+// -----------------------------------------
 
 // Define your routes
 router.get("/", (req, res) => {
@@ -43,26 +76,23 @@ router.post("/signinFunc", (req, res) => {
   db.query(query, [username], (err, results) => {
       if (err) {
           console.error("Error querying the database:", err);
-          return res.status(500).json({ error: "Internal server error" });
+          return res.status(500).json({ error: "username or password is incorrect!" });
       }
 
       if (results.length > 0) {
           // User exists, compare passwords
           const user = results[0];
-          bcrypt.compare(password, user.password, (err, isMatch) => {
-              if (err) {
-                  console.error("Error comparing passwords:", err);
-                  return res.status(500).json({ error: "Internal server error" });
-              }
+          var asta = findPepperedPassword(password, user.salt, user.password);
+          if(asta == false){
+            console.error("Error comparing passwords:", err);
+            return res.status(500).json({ error: "username or password is incorrect!" });
+          }
+          if (asta == true) {
+            req.session.currentUser = user;
+            console.log(req.session.currentUser);
+            return res.status(200).json({ message: "Login successful" });
+          }
 
-              if (isMatch) {
-                  req.session.currentUser = user;
-                  console.log(req.session.currentUser);
-                  return res.status(200).json({ message: "Login successful" });
-              } else {
-                  return res.status(401).json({ message: "Invalid username or password" });
-              }
-          });
       } else {
           // No user found
           return res.status(400).json({ success: false, message: "User not found! Please register first" });
@@ -90,19 +120,21 @@ router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
           return res.status(500).json({ message: 'Username already exists. Please choose another one.' });
       }
 
-      // ADD SECURITY HERE
+      //salt
+      var salt = saltbae(20);
 
+      //pepper
+      var pepper = saltbae(1);
 
-
+      // Hash the password before storing it in the database
+      const hashedPassword = await hashbrown(password, salt, pepper);
       
       //console.log('Temporary file path:', req.file.path);
-      // Hash the password before storing it in the database
-      const hashedPassword = await bcrypt.hash(password, 10);
 
       // Insert new user into the database
       const [result] = await db.promise().query(
-          'INSERT INTO user (username, password, email, phone_number, profile_pic) VALUES (?, ?, ?, ?, ?)',
-          [username, hashedPassword, email, phone, profilepic]
+          'INSERT INTO user (username, password, salt, email, phone_number, profile_pic) VALUES (?, ?, ?, ?, ?, ?)',
+          [username, hashedPassword, salt, email, phone, profilepic]
       );
       
       // Respond with success message
