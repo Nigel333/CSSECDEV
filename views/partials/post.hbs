@@ -51,6 +51,17 @@
                 <img src="/static/images/post/delete.png" class="delete">
             </button>
             <p class="delete-post">Delete</p>
+            {{else}} 
+            {{#if (isEqual @root.currentUser.status "admin")}}
+             <button class="edit-button" onclick="openEditPopup('{{post_id}}')">
+                <img src="/static/images/post/edit.png" class="edit">
+            </button>
+            <p class="edit-post">Edit</p>
+            <button class="delete-button" id="delete-{{post_id}}">
+                <img src="/static/images/post/delete.png" class="delete">
+            </button>
+            <p class="delete-post">Delete</p>
+            {{/if}}
             {{/if}}
             <a href="/view/{{post_id}}" class="post-clickable">
                 <button class="comment-button">

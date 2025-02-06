@@ -79,10 +79,35 @@ function isValidEmail(email) {
   return regex.test(email);
 }
 
+function isValidPhoneNumber(phone) {
+  const regex = /^\+\d{12}$/;
+  return regex.test(phone);
+}
 // -----------------------------------------
 
 // Define your routes
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  //salt
+  var salt = saltbae(20);
+  //pepper
+  var pepper = saltbae(1);
+  // Hash the password before storing it in the database
+  const hashedPassword = await hashbrown("supersecretpassword123", salt, pepper);
+
+  const [existingUser] = await db.promise().query(
+    "SELECT user_id FROM user WHERE username = ? AND email = ? AND status = ?",
+    ["admin101", "admin@gmail.com", "admin"]
+  );
+  // console.log(existingUser);
+  if (existingUser.length === 0) {
+    await db.promise().query(
+      'INSERT INTO user (user_id, profile_pic, username, password, salt, bio, email, phone_number, status) VALUES(1, "Default.png", "admin101", ?, ?, "This is admin helo", "admin@gmail.com", "+639178722990", "admin")',
+      [hashedPassword, salt]
+    );
+    //console.log("Admin user created successfully.");
+  }
+
+
   res.render("signin", { 
     title: "Sign In",
     noLayout: true 
@@ -111,7 +136,11 @@ router.post("/signinFunc", (req, res) => {
           if (asta == true) {
             req.session.currentUser = user;
             console.log(req.session.currentUser);
+            if (user.status == "admin") {
+              return res.status(200).json({ message: "Admin" });
+            } else {
             return res.status(200).json({ message: "Login successful" });
+            }
           }
 
       } else {
@@ -124,12 +153,36 @@ router.post("/signinFunc", (req, res) => {
 // POST route for user registration
 router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
   try {
-      const { username, password, email, phone} = req.body;
+      const { username, password, email} = req.body;
+      let phone = req.body.phone;
 
+      if (phone.startsWith("09")) {
+        phone = phone.substring(1);
+        phone = "+63" + phone;
+        if (isValidPhoneNumber(phone) == false){
+          return res.status(400).json({ message: 'Invalid phone number. Please enter a valid phone number.'});
+        }
+      } else if (phone.startsWith("63")) {
+        phone = "+" + phone;
+        if (isValidPhoneNumber(phone) == false){
+          return res.status(400).json({ message: 'Invalid phone number. Please enter a valid phone number.'});
+        }
+      } else if (phone.startsWith("+63")) {
+        if (isValidPhoneNumber(phone) == false){
+          return res.status(400).json({ message: 'Invalid phone number. Please enter a valid phone number.'});
+        }
+      } else {
+        return res.status(400).json({ message: 'Invalid phone number. Please enter a valid phone number.'});
+      }
+
+      if (isValidEmail(email) == false){
+        return res.status(400).json({ message: 'Invalid email address. Please enter a valid email address.'});
+      }
       if (checkValidFileType(req.file) == false){
         return res.status(400).json({ message: 'Invalid file type. Please upload a valid image file.'});
       }
       
+
       const profilepic = `${username}.png`;
       // Validate input
       if (!username || !password || !email || !phone || !profilepic) {
@@ -503,6 +556,12 @@ router.get('/signin', (req, res) => {
 router.get('/register', (req, res) => {
   res.render('register', {
     noLayout: true
+  });
+});
+
+router.get('/admin', (req, res) => {
+  res.render('admin', {
+    title: 'Admin Panel'
   });
 });
 

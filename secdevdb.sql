@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `salt` VARCHAR(20) NOT NULL,
   `bio` LONGTEXT NULL,
   `email` VARCHAR(255) NOT NULL DEFAULT 'default@gmail.com',
-  `phone_number` BIGINT(255) UNSIGNED NOT NULL DEFAULT '00000000000',
+  `phone_number` VARCHAR(20) NOT NULL DEFAULT '00000000000',
+  `status` VARCHAR(20) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -184,5 +185,3 @@ SELECT * FROM madeby;
 DELETE FROM post WHERE author > 0;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;
-INSERT INTO post VALUES(1, 'helo', 1, 'wasup guys welcome to my channel', null, 3, 0);
-INSERT INTO post VALUES(2, 'test', 3, 'lolololol', null, 3, 0);

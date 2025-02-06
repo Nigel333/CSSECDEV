@@ -55,10 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             
             const responseData = await response.json();
-            console.log(responseData.message); // Sign-in successful
-
-            // Redirect to the homepage or other pages as needed
-            window.location.href = '/home';
+            console.log(responseData.message); 
+            if (responseData.message === "Admin") {
+                window.location.href = '/admin';
+            } else {
+                window.location.href = '/home';
+            }            
         } catch (error) {
             console.error("Error during sign-in:", error);
             // Handle the error as needed

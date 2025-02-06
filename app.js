@@ -7,7 +7,7 @@ const session = require('express-session');
 const app = express();
 
 // MySQL Database Connection
-// change the .env file as well
+// change the .env file as well! IMPORTANT
 const db = mysql.createConnection({
   host: "localhost",
   user: "root", // Replace with your MySQL username
@@ -24,8 +24,8 @@ app.engine(
   "hbs",
   exphbs.engine({
     extname: "hbs",
-    defaultLayout: "main", // This specifies the default layout
-    layoutsDir: path.join(__dirname, "views/layouts"), // Path to the layouts folder
+    defaultLayout: "main", 
+    layoutsDir: path.join(__dirname, "views/layouts"), 
     helpers: {
       getUpvoteStatus: function (upvoteStatusArray, postId) {
         const status = upvoteStatusArray.find(item => item.post.post_id === postId);
@@ -52,10 +52,8 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
-// Set up partials (optional)
 hbs.registerPartials(path.join(__dirname, "views/partials"));
 
-// Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/static", express.static("public"));
 app.use(express.json());
@@ -65,7 +63,7 @@ app.use(session({
   secret: 'your-secret-key', // A secret key for signing the session ID
   resave: false, // Don't save session if unmodified
   saveUninitialized: true, // Save a session even if it's new
-  cookie: { secure: false } // Set to `true` if you're using HTTPS (for security)
+  cookie: { secure: false } 
 }));
 
 
