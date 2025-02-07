@@ -87,26 +87,7 @@ function isValidPhoneNumber(phone) {
 
 // Define your routes
 router.get("/", async (req, res) => {
-  //salt
-  var salt = saltbae(20);
-  //pepper
-  var pepper = saltbae(1);
-  // Hash the password before storing it in the database
-  const hashedPassword = await hashbrown("supersecretpassword123", salt, pepper);
-
-  const [existingUser] = await db.promise().query(
-    "SELECT user_id FROM user WHERE username = ? AND email = ? AND status = ?",
-    ["admin101", "admin@gmail.com", "admin"]
-  );
-  // console.log(existingUser);
-  if (existingUser.length === 0) {
-    await db.promise().query(
-      'INSERT INTO user (user_id, profile_pic, username, password, salt, bio, email, phone_number, status) VALUES(1, "Default.png", "admin101", ?, ?, "This is admin helo", "admin@gmail.com", "+639178722990", "admin")',
-      [hashedPassword, salt]
-    );
-    //console.log("Admin user created successfully.");
-  }
-
+  
 
   res.render("signin", { 
     title: "Sign In",
