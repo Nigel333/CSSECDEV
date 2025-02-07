@@ -178,6 +178,10 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 use mydb;
+
+INSERT INTO user (user_id, profile_pic, username, password, salt, bio, email, phone_number, status) 
+VALUES(1, "Default.png", "admin201", "b88ecf3d303639c03436375aed8764b6faf0a20253565536c8", "sKsdV0z9Snd3NnD4Y8pk", "This is admin helo", "admin201@gmail.com", "+639178722990", "admin");
+
 SELECT * FROM user;
 SELECT * FROM post;
 SELECT * FROM comment;
@@ -185,3 +189,4 @@ SELECT * FROM madeby;
 DELETE FROM post WHERE author > 0;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;
+
