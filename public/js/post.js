@@ -102,7 +102,7 @@ async function editPost() {
         editedFlag.setAttribute('data-edited', 'false');
         editedFlag.innerText = '';
       }
-      location.reload();
+      window.location.href = '/home';
     } else {
       console.error("Bad request");
     }

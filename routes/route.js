@@ -9,6 +9,7 @@ const fs = require('fs');
 const crypto = require("crypto");
 const digitAvail = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
 const uploadDir = path.join(__dirname, '..', 'public', 'images', 'profile');
+const rateLimit = require("express-rate-limit");
 
 // Ensure the directory exists
 if (!fs.existsSync(uploadDir)) {
@@ -26,6 +27,19 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+const loginRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 10, 
+  message: { message: "Too many login attempts, please try again later." },
+  standardHeaders: true, 
+  legacyHeaders: false, 
+})
+
+const loginAttempts = {};
+
+const MAX_ATTEMPTS = 5;
+const BLOCK_TIME = 15 * 60 * 1000; // 15 minutes
 
 // ----------------------------------------- Functions
 // generates characters aA-zZ, 0-9, and _- of length
@@ -75,7 +89,7 @@ function checkValidFileType(file){
 }
 
 function isValidEmail(email) {
-  const regex = /\w+@\w+.(\w+)|(\w+)$/;
+  const regex = /^\w+@\w+\.\w+$/;
   return regex.test(email);
 }
 
@@ -83,6 +97,32 @@ function isValidPhoneNumber(phone) {
   const regex = /^\+\d{12}$/;
   return regex.test(phone);
 }
+
+
+function trackFailedAttempts(req, res, next) {
+  const ip = req.ip;
+
+  if (!loginAttempts[ip]) {
+    loginAttempts[ip] = { attempts: 0, lastAttempt: Date.now(), blockedUntil: null };
+  }
+
+  const data = loginAttempts[ip];
+
+  // If IP is currently blocked
+  if (data.blockedUntil && Date.now() < data.blockedUntil) {
+    return res.status(400).json({ message: "Too many failed attempts. Try again later." });
+  }
+
+  // Reset attempts if last attempt was a long time ago
+  if (Date.now() - data.lastAttempt > BLOCK_TIME) {
+    data.attempts = 0;
+  }
+
+  data.lastAttempt = Date.now();
+  next();
+}
+
+
 // -----------------------------------------
 
 // Define your routes
@@ -95,9 +135,14 @@ router.get("/", async (req, res) => {
     });
 });
 
-router.post("/signinFunc", (req, res) => {
+router.post("/signinFunc", loginRateLimiter, trackFailedAttempts, (req, res) => {
   const { username, password } = req.body;
+  const ip = req.ip;
 
+  
+  if (!loginAttempts[ip]) {
+    loginAttempts[ip] = { attempts: 0, lastAttempt: Date.now(), blockedUntil: null };
+  }
   // Query the database to find the user
   const query = "SELECT * FROM user WHERE username = ?";
   db.query(query, [username], (err, results) => {
@@ -111,10 +156,18 @@ router.post("/signinFunc", (req, res) => {
           const user = results[0];
           var asta = findPepperedPassword(password, user.salt, user.password);
           if(asta == false){
+            loginAttempts[ip].attempts += 1;
+            if (loginAttempts[ip].attempts >= MAX_ATTEMPTS) {
+              loginAttempts[ip].blockedUntil = Date.now() + BLOCK_TIME; 
+              return res.status(429).json({ message: "Too many failed attempts. Try again later." });
+            }
+            console.log(loginAttempts[ip].attempts);
+
             console.error("Error comparing passwords:", err);
             return res.status(500).json({ message: "username or password is incorrect!" });
           }
           if (asta == true) {
+            loginAttempts[ip] = { attempts: 0, lastAttempt: Date.now(), blockedUntil: null };
             req.session.currentUser = user;
             console.log(req.session.currentUser);
             if (user.status == "admin") {
@@ -511,17 +564,66 @@ router.get("/main-profile", async (req, res) => {
 });
 
 
-// Fetch all users
-router.get("/users", (req, res) => {
-  const query = "SELECT * FROM user";
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error("Error fetching users:", err);
-      return res.status(500).send("Error fetching users");
-    }
-    res.render("users", { title: "Users", users: results });
-  });
+router.put("/post/:post_id", async (req, res) => {
+  try {
+    const postIdToUpdate = parseInt(req.params.post_id);
+    const { title, content, img } = req.body;
+
+    // Check if the post exists
+    const checkQuery = "SELECT * FROM post WHERE post_id = ?";
+    db.query(checkQuery, [postIdToUpdate], (err, results) => {
+      if (err) {
+        console.error("Error checking post:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      if (results.length === 0) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+
+      // Update the post
+      const updateQuery = `
+        UPDATE post 
+        SET title = ?, content = ?, image = ?
+        WHERE post_id = ?
+      `;
+
+      db.query(updateQuery, [title, content, img, postIdToUpdate], (err, result) => {
+        if (err) {
+          console.error("Error updating post:", err);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        res.status(200).json({ message: "Post updated successfully", edited: true });
+      });
+    });
+  } catch (error) {
+    console.error("Error in update route:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
+router.delete("/post/:post_id", async (req, res) => {
+  try {
+    const postIdToDelete = parseInt(req.params.post_id);
+
+    const deleteReferencesQuery = "DELETE FROM madeby WHERE post_id = ?";
+    await db.promise().execute(deleteReferencesQuery, [postIdToDelete]);
+    
+    const deleteQuery = "DELETE FROM post WHERE post_id = ?";
+    const [deleteResult] = await db.promise().execute(deleteQuery, [postIdToDelete]);
+
+    if (deleteResult.affectedRows === 0) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.status(200).json({ message: "Post deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 router.get('/signin', (req, res) => {
   req.session.destroy((err) => {

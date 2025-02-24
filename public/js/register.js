@@ -74,12 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
         body: formData, // No need for Content-Type; Fetch handles it
       });
 
+      const data = await response.json();
+ 
       // Handle the response
       if (response.status === 200) {
         console.log("Registration successful");
         window.location.href = '/signin';
       } else if (response.status === 400) {
-        warning.textContent = 'Registration failed! Try Again.';
+        warning.textContent = data.message;
       } else if (response.status === 500) {
         warning.textContent = 'Username already exists! Try Again.';
       } else {
