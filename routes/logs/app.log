@@ -1,0 +1,19 @@
+[2025-02-25 09:57:14] INFO: User nigel logged in successfully from IP ::1
+[2025-02-25 09:57:43] INFO: New post inserted with post_id: 1 by user nigel
+[2025-02-25 09:58:35] INFO: Post with ID 1 deleted successfully by user nigel
+[2025-02-25 10:00:07] WARN: Login attempt for non-existent user: potat
+[2025-02-25 10:01:31] WARN: Login attempt for non-existent user: potat
+[2025-02-25 10:01:41] INFO: User nigel logged in successfully from IP ::1
+[2025-02-25 10:02:00] INFO: User nigel logged in successfully from IP ::1
+[2025-02-25 10:02:05] INFO: New post inserted with post_id: 2 by user nigel
+[2025-02-25 10:02:50] ERROR: Database error during login for user nigel, IP: ::1: Can't add new command when connection is in closed state
+[2025-02-25 14:04:31] WARN: Login attempt for non-existent user: potat
+[2025-02-25 14:04:49] WARN: Login attempt for non-existent user: potat
+[2025-02-25 14:44:38] INFO: User nigel121 logged in successfully from IP ::1
+[2025-02-25 15:02:20] INFO: User nigel121 logged in successfully from IP ::1
+[2025-02-25 16:19:36] WARN: Login attempt for non-existent user: potat
+[2025-02-25 16:20:33] INFO: User nigel121 logged in successfully from IP ::1
+[2025-02-25 16:25:43] INFO: User chantal logged in successfully from IP ::1
+[2025-02-25 16:25:46] INFO: User chantal logged out.
+[2025-02-25 16:26:03] INFO: User nigel121a logged in successfully from IP ::1
+[2025-02-25 16:27:00] INFO: User chantal1 logged in successfully from IP ::1

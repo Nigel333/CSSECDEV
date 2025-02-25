@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mysql = require("mysql2");
 const express = require("express");
 const path = require("path");
@@ -59,12 +60,44 @@ app.use("/static", express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-  secret: 'your-secret-key', // A secret key for signing the session ID
-  resave: false, // Don't save session if unmodified
-  saveUninitialized: true, // Save a session even if it's new
-  cookie: { secure: false } 
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,  
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+      maxAge: 10 * 60 * 1000, 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax"
+    }
+  })
+);
+
+app.use((req, res, next) => {
+  if (req.session.currentUser) {
+    req.session._garbage = Date();
+    req.session.touch();
+  }
+  next();
+});
+
+app.get("/check-session", (req, res) => {
+  if (!req.session.currentUser) {
+    return res.json({ sessionExpired: true });
+  }
+  res.json({ sessionExpired: false });
+});
+
+app.use((err, req, res, next) => {
+  const debugMode = process.env.DEBUG === "true" || process.env.NODE_ENV === "development";
+
+  res.status(500).json({
+    message: debugMode ? err.message : "Something went wrong, please try again.",
+    ...(debugMode && { stack: err.stack }) // Show stack trace only in debug mode
+  });
+});
+
 
 
 const routes = require("./routes/route");

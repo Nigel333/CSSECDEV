@@ -398,5 +398,17 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Bad request");
     }
   });
+
+  setInterval(() => {
+    fetch("/check-session")
+      .then(response => response.json())
+      .then(data => {
+        if (data.sessionExpired) {
+          alert("Session expired! Please log in again.");
+          window.location.href = "/signin"; 
+        }
+      })
+      .catch(error => console.error("Session check failed", error));
+  }, 60000);
 });
 

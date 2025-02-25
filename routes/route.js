@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const bcrypt = require("bcrypt");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -10,6 +9,8 @@ const crypto = require("crypto");
 const digitAvail = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
 const uploadDir = path.join(__dirname, '..', 'public', 'images', 'profile');
 const rateLimit = require("express-rate-limit");
+const logger = require("./logger");
+
 
 // Ensure the directory exists
 if (!fs.existsSync(uploadDir)) {
@@ -40,6 +41,8 @@ const loginAttempts = {};
 
 const MAX_ATTEMPTS = 5;
 const BLOCK_TIME = 15 * 60 * 1000; // 15 minutes
+
+
 
 // ----------------------------------------- Functions
 // generates characters aA-zZ, 0-9, and _- of length
@@ -122,12 +125,17 @@ function trackFailedAttempts(req, res, next) {
   next();
 }
 
+function sessionTimeoutMiddleware(req, res, next) {
+  if (!req.session.currentUser) {
+    return res.status(400).json({ message: "Session expired. Please log in again." });
+  }
+  next();
+}
 
 // -----------------------------------------
 
-// Define your routes
-router.get("/", async (req, res) => {
-  
+// All routes
+router.get("/", sessionTimeoutMiddleware, async (req, res) => {
 
   res.render("signin", { 
     title: "Sign In",
@@ -135,7 +143,7 @@ router.get("/", async (req, res) => {
     });
 });
 
-router.post("/signinFunc", loginRateLimiter, trackFailedAttempts, (req, res) => {
+router.post("/signinFunc", loginRateLimiter, trackFailedAttempts,  (req, res) => {
   const { username, password } = req.body;
   const ip = req.ip;
 
@@ -147,7 +155,7 @@ router.post("/signinFunc", loginRateLimiter, trackFailedAttempts, (req, res) => 
   const query = "SELECT * FROM user WHERE username = ?";
   db.query(query, [username], (err, results) => {
       if (err) {
-          console.error("Error querying the database:", err);
+          logger.error(`Database error during login for user ${username}, IP: ${ip}: ${err.message}`);
           return res.status(500).json({ error: "username or password is incorrect!" });
       }
 
@@ -156,17 +164,21 @@ router.post("/signinFunc", loginRateLimiter, trackFailedAttempts, (req, res) => 
           const user = results[0];
           var asta = findPepperedPassword(password, user.salt, user.password);
           if(asta == false){
+            logger.warn(`Failed login attempt for user ${username} from IP ${ip}`);
             loginAttempts[ip].attempts += 1;
+
             if (loginAttempts[ip].attempts >= MAX_ATTEMPTS) {
+              logger.warn(`IP ${req.ip} temporarily blocked due to too many failed login attempts`);
               loginAttempts[ip].blockedUntil = Date.now() + BLOCK_TIME; 
               return res.status(429).json({ message: "Too many failed attempts. Try again later." });
             }
-            console.log(loginAttempts[ip].attempts);
-
+            // console.log(loginAttempts[ip].attempts);
+            
             console.error("Error comparing passwords:", err);
             return res.status(500).json({ message: "username or password is incorrect!" });
           }
           if (asta == true) {
+            logger.info(`User ${username} logged in successfully from IP ${req.ip}`);
             loginAttempts[ip] = { attempts: 0, lastAttempt: Date.now(), blockedUntil: null };
             req.session.currentUser = user;
             console.log(req.session.currentUser);
@@ -179,13 +191,14 @@ router.post("/signinFunc", loginRateLimiter, trackFailedAttempts, (req, res) => 
 
       } else {
           // No user found
+          logger.warn(`Login attempt for non-existent user: ${username}`);
           return res.status(400).json({ success: false, message: "User not found! Please register first" });
       }
   });
 });
 
 // POST route for user registration
-router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
+router.post('/registerFunc', upload.single('profilePic'),  async (req, res) => {
   try {
       const { username, password, email} = req.body;
       let phone = req.body.phone;
@@ -261,7 +274,7 @@ router.post('/registerFunc', upload.single('profilePic'), async (req, res) => {
   }
 });
 
-router.get("/home", async (req, res) => {
+router.get("/home", sessionTimeoutMiddleware, async (req, res) => {
   try {
     // Fetch posts and their related data using JOINs
     const postsQuery = `
@@ -351,7 +364,7 @@ router.get("/home", async (req, res) => {
 });
 
 // This route renders the view page.
-router.get("/view/:post_id", async (req, res) => {
+router.get("/view/:post_id", sessionTimeoutMiddleware, async (req, res) => {
   try {
     const post_id = req.params.post_id;
 
@@ -423,13 +436,13 @@ router.get("/view/:post_id", async (req, res) => {
 });
 
 // This route is used for creating posts.
-router.post("/post", async (req, res) => {
+router.post("/post", sessionTimeoutMiddleware, async (req, res) => {
   try {
     const { title, content, image } = req.body;
     const currentUser = req.session.currentUser; // Ensure the session contains the current user info
 
     if (!currentUser || !currentUser.user_id) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(400).json({ error: "Unauthorized" });
     }
 
     if (title && content) {
@@ -446,7 +459,8 @@ router.post("/post", async (req, res) => {
         currentUser.user_id,
       ]);
 
-      console.log("New post inserted with post_id:", result.insertId);
+      logger.info(`New post inserted with post_id: ${result.insertId} by user ${currentUser.username}`);
+      //console.log("New post inserted with post_id:", result.insertId);
 
       // Update the user's post count (if necessary)
       const insertMadeByQuery = `
@@ -467,7 +481,7 @@ router.post("/post", async (req, res) => {
 });
 
 // BROKEN for now
-router.get("/main-profile", async (req, res) => {
+router.get("/main-profile", sessionTimeoutMiddleware, async (req, res) => {
   try {
     const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
     const currentUser = req.session.currentUser
@@ -564,7 +578,7 @@ router.get("/main-profile", async (req, res) => {
 });
 
 
-router.put("/post/:post_id", async (req, res) => {
+router.put("/post/:post_id", sessionTimeoutMiddleware, async (req, res) => {
   try {
     const postIdToUpdate = parseInt(req.params.post_id);
     const { title, content, img } = req.body;
@@ -573,11 +587,13 @@ router.put("/post/:post_id", async (req, res) => {
     const checkQuery = "SELECT * FROM post WHERE post_id = ?";
     db.query(checkQuery, [postIdToUpdate], (err, results) => {
       if (err) {
-        console.error("Error checking post:", err);
+        logger.error(`Error checking post in database: ${err.message}`);
+        //console.error("Error checking post:", err);
         return res.status(500).json({ error: "Internal Server Error" });
       }
 
       if (results.length === 0) {
+        logger.warn(`Attempted to edit a non-existent post with ID: ${postIdToUpdate}`);
         return res.status(404).json({ error: "Post not found" });
       }
 
@@ -590,10 +606,12 @@ router.put("/post/:post_id", async (req, res) => {
 
       db.query(updateQuery, [title, content, img, postIdToUpdate], (err, result) => {
         if (err) {
-          console.error("Error updating post:", err);
+          logger.error(`Error updating post in database: ${err.message}`);
+          //console.error("Error updating post:", err);
           return res.status(500).json({ error: "Internal Server Error" });
         }
 
+        logger.info(`Post with ID ${postIdToUpdate} updated successfully by user ${req.session.currentUser.username}`);
         res.status(200).json({ message: "Post updated successfully", edited: true });
       });
     });
@@ -603,7 +621,7 @@ router.put("/post/:post_id", async (req, res) => {
   }
 });
 
-router.delete("/post/:post_id", async (req, res) => {
+router.delete("/post/:post_id", sessionTimeoutMiddleware, async (req, res) => {
   try {
     const postIdToDelete = parseInt(req.params.post_id);
 
@@ -614,9 +632,11 @@ router.delete("/post/:post_id", async (req, res) => {
     const [deleteResult] = await db.promise().execute(deleteQuery, [postIdToDelete]);
 
     if (deleteResult.affectedRows === 0) {
+      logger.warn(`Attempted to delete a non-existent post with ID: ${postIdToDelete}`);
       return res.status(404).json({ error: "Post not found" });
     }
 
+    logger.info(`Post with ID ${postIdToDelete} deleted successfully by user ${req.session.currentUser.username}`);
     res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {
     console.error("Error deleting post:", error);
@@ -626,11 +646,16 @@ router.delete("/post/:post_id", async (req, res) => {
 
 
 router.get('/signin', (req, res) => {
+  if (req.session.currentUser) {
+    logger.info(`User ${req.session.currentUser.username} logged out.`);
+  }
   req.session.destroy((err) => {
     if (err) {
         return res.status(500).json({ message: "Error logging out" });
-    }
+    } 
+    res.clearCookie("connect.sid");
   });
+  
   res.render('signin', {
     noLayout: true
   });
