@@ -6,14 +6,15 @@ const hbs = require("hbs");
 const exphbs = require("express-handlebars");
 const session = require('express-session');
 const app = express();
+const MySQLStore = require("express-mysql-session")(session);
 
 // MySQL Database Connection
 // change the .env file as well! IMPORTANT
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root", // Replace with your MySQL username
-  password: "H@nter803", // Replace with your MySQL password
-  database: "mydb", // Replace with your database name
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER, // Replace with your MySQL username
+  password: process.env.DB_PASSWORD, // Replace with your MySQL password
+  database: process.env.DB_NAME, // Replace with your database name
 });
 
 db.connect((err) => {
@@ -60,11 +61,14 @@ app.use("/static", express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const sessionStore = new MySQLStore({}, db);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,  
     resave: false,
     saveUninitialized: false,
+    store: sessionStore,
     cookie: { 
       maxAge: 10 * 60 * 1000, 
       httpOnly: true, 
@@ -90,12 +94,13 @@ app.get("/check-session", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const debugMode = process.env.DEBUG === "true" || process.env.NODE_ENV === "development";
+  const debugMode = process.env.DEBUG === "true";
 
-  res.status(500).json({
-    message: debugMode ? err.message : "Something went wrong, please try again.",
-    ...(debugMode && { stack: err.stack }) // Show stack trace only in debug mode
-  });
+  if (debugMode) {
+    return res.status(500).json({ stack: err.stack });
+  }
+
+  res.status(500).send("ERROR: Something went wrong, please try again." );
 });
 
 

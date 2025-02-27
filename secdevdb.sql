@@ -186,6 +186,7 @@ SELECT * FROM user;
 SELECT * FROM post;
 SELECT * FROM comment;
 SELECT * FROM madeby;
+SELECT * FROM sessions;
 DELETE FROM post WHERE author > 0;
 DELETE FROM user WHERE user_id > 0;
 ALTER TABLE `user` AUTO_INCREMENT = 1;

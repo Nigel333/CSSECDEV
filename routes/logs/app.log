@@ -17,3 +17,28 @@
 [2025-02-25 16:25:46] INFO: User chantal logged out.
 [2025-02-25 16:26:03] INFO: User nigel121a logged in successfully from IP ::1
 [2025-02-25 16:27:00] INFO: User chantal1 logged in successfully from IP ::1
+[2025-02-27 10:08:00] INFO: User tay logged in successfully from IP ::1
+[2025-02-27 10:13:25] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:16:02] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:33:07] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:33:38] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:34:39] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:35:14] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:37:40] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:39:26] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:39:55] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:43:09] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:47:42] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:49:33] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:50:30] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:50:57] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:53:57] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 10:54:19] INFO: User tay1 logged out.
+[2025-02-27 11:00:24] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 11:05:29] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 11:09:08] WARN: Failed login attempt for user tay1 from IP ::1
+[2025-02-27 11:09:13] INFO: User tay1 logged in successfully from IP ::1
+[2025-02-27 11:11:54] INFO: User tay12 logged in successfully from IP ::1
+[2025-02-27 11:15:21] INFO: User MamaMO logged in successfully from IP ::1
+[2025-02-27 11:15:50] INFO: New post inserted with post_id: 3 by user MamaMO
+[2025-02-27 11:16:18] INFO: Post with ID 3 deleted successfully by user MamaMO

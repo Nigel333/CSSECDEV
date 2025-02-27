@@ -135,7 +135,7 @@ function sessionTimeoutMiddleware(req, res, next) {
 // -----------------------------------------
 
 // All routes
-router.get("/", sessionTimeoutMiddleware, async (req, res) => {
+router.get("/", async (req, res) => {
 
   res.render("signin", { 
     title: "Sign In",
@@ -182,6 +182,9 @@ router.post("/signinFunc", loginRateLimiter, trackFailedAttempts,  (req, res) =>
             loginAttempts[ip] = { attempts: 0, lastAttempt: Date.now(), blockedUntil: null };
             req.session.currentUser = user;
             console.log(req.session.currentUser);
+            //console.log("Session ID:", req.sessionID);
+            //console.log("Session Data:", req.session);
+
             if (user.status == "admin") {
               return res.status(200).json({ message: "Admin" });
             } else {
@@ -654,6 +657,7 @@ router.get('/signin', (req, res) => {
         return res.status(500).json({ message: "Error logging out" });
     } 
     res.clearCookie("connect.sid");
+    
   });
   
   res.render('signin', {
