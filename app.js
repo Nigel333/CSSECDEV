@@ -7,6 +7,19 @@ const exphbs = require("express-handlebars");
 const session = require('express-session');
 const app = express();
 const MySQLStore = require("express-mysql-session")(session);
+const fs = require("fs");
+const https = require("https");
+
+
+const options = {
+  key: fs.readFileSync("localhost-key.pem"),
+  cert: fs.readFileSync("localhost.pem"),
+};
+
+
+https.createServer(options, app).listen(3000, () => {
+  console.log("HTTPS Server running on https://localhost:3000");
+});
 
 // MySQL Database Connection
 // change the .env file as well! IMPORTANT
@@ -110,8 +123,9 @@ const routes = require("./routes/route");
 // Use the routes
 app.use("/", routes);
 
-// Start the server
+/* old HTTP server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+*/
