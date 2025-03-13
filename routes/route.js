@@ -77,18 +77,19 @@ function findPepperedPassword(password, salt, db){
 
 //check file type 
 function checkValidFileType(file){
+  //console.log(Buffer.isBuffer(file)); ANWER: NO
+  //console.log(Buffer.isBuffer(file.buffer)); ANSWER: NO
+  //console.log(file.path); note: file is.. a lot of things print without .path for details
   //allowed extensions
-  const filetypes = /jpeg|jpg|png/;
-  //check extension
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  //check mimetype
-  const mimetype = filetypes.test(file.mimetype);
+  const jpgMagic = Buffer.from([0xFF, 0xD8, 0xFF]); 
+  const pngMagic = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]); 
 
-  if(mimetype && extname){
-    return true;
-  } else {
-    return false;
-  }
+  //check magic number
+  const filebuff = fs.readFileSync(file.path);
+  const isJPG = jpgMagic.equals(filebuff.slice(0, 3));
+  const isPNG = pngMagic.equals(filebuff.slice(0, 8));
+
+  return isJPG || isPNG;
 }
 
 function isValidEmail(email) {
@@ -671,11 +672,45 @@ router.get('/register', (req, res) => {
   });
 });
 
-router.get('/admin', (req, res) => {
-  res.render('admin', {
-    title: 'Admin Panel'
+router.get('/admin', async(req, res) => {
+  try {
+    //fetch users
+    const q = `
+    SELECT
+     u.user_id, u.username
+    FROM user u
+    `;
+    // const userlist = await db.promise().query(q);
+    const userlist = await db.promise().query(q, [
+      req.session.currentUser?.user_id || 0,
+      req.session.currentUser?.user_id || 0,
+      req.session.currentUser?.user_id || 0, //WHAT IS THIS FOR? 
+    ] );
+  
+    console.log("User List:", userlist );
+    
+    res.render('admin', {
+      title: 'Admin Panel',
+      userlist: userlist[0],
+    });
+  }catch (error) {
+    console.error("Error in admin fetch:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }  
   });
-});
+  
+  router.delete("/user/:user_id", sessionTimeoutMiddleware, async (req, res) => {
+    try {
+      const useridToDelete = parseInt(req.params.user_id);
+  
+      const que = "DELETE FROM user WHERE user_id = ?";
+      await db.promise().execute(q, [useridToDelete]);
+  
+      // wipe from the face of the earth
+      const gonegirl = "";
+  
+    } catch (error){}
+  });
 
 router.get("/profile", (req, res) => {
   res.render("profile", { title: "User Profile", message: "Welcome to your profile" });

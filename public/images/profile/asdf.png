@@ -1,0 +1,254 @@
+[Module 1]
+Information is an asset
+information security - protection of assets to achieve CIA
+		     - refers to process or methodologies dat are designed and implemented
+			to protect
+CIA - confidentiality, integrity, and Availability
+
+confidentiality - info kept private and secure
+		RISK: loss of privacy, unauthorized access, and identity theft
+		CONTROL: encryption, authentication, access controls
+
+integrity - data not modified, deleted, or added
+		RISK: info no longer reliable, accurate and fraud
+		CONTROL: quality assurance and audit logs
+
+availability - systems available to whoever requires them
+		RISK: business disruption, loss of customer confidence and revenue
+		CONTROL: backup storage, sufficient capacity
+
+AAA - authentication, authorization, audit trail
+    - the supp concepts needed to implement CIA
+    - tech centric, varies according to tech being used
+
+Authentication - subject attempts to verify/prove their identity
+	       - 3 forms: 
+			what u know - passwords, PINS, etc
+			what u have - physical keys,cards, tokens, etc
+			what u are - biometric, fingerprint, etc
+Authorization - granting authenticated subject proper access rights
+	      - after authentication
+	      - common authorization schemes: 
+			Mandatory Access Control
+			Discretionary Access Control
+			Role-based Access Control
+			Attribute-based Access Control
+Audit Trails - error, login attempts, etc should be tracked and stored in secure location
+	     - should be traceable to specific subject
+
+Key Concepts
+1. Assets - any item with value to an org
+2. Vulnerabilities - weakness or flaw
+		   - may be present in inherent design or implementation
+3. Threat, Impact, Exposure Factor - threat is potential security violation
+				   - incident is occurrence of threat
+				   - impact is outcome when incident happens
+				   - exposure is the potential loss of an asset when threat 					occurs
+4. Risk - probability that threat occurs
+	- risk management is process of reducing risk to acceptable level
+	- no such thing as 0 risk
+5. Security Controls - mechanism by which risk can be mitigated
+		     - 3 groups:
+				technical
+				administrative
+				physical
+		     - improper implementation may increase risk
+
+Software Engineering - systematic development of software that is within costs, time, and other constraints
+Challenges:
+1. lack of understanding of user needs
+2. unclear scope
+3. lack of change management
+4. poor project planning
+5. communication problems
+6. teamwork problems
+7. security issue
+
+Software Development Life Cycles (SDLC) - sequence of steps to building software
+
+Basic life cycle phases:
+1. requirements phase
+2. analysis phase
+3. design phase
+4. implementation phase
+5. post-delivery phase
+6. retirement
+
+SDLC models
+1. Code-and-Fix
+2. Waterfall
+3. Iterative
+4. Incremental
+5. Agile
+6. Scrum
+
+Model-View-Controller (MVC) - software archi suited for web app
+			    - seperates logic from UI
+			    - allows indiv components to be tested indiv
+			    - extra layer of protection thru isolation
+
+Model - encapsulates functionality and represents data
+      - provides abstraction between low level primitives(??) and controller and view
+      - data received and sent shud be checked against business rules
+View - frontend
+     - renders data into HTML and shud not contain any business logic
+     - data collected is sent back to controller
+Controller - contains application or business logic
+	   - acts as mediator
+	   - contain code to protect the app
+
+Security Principles - shud be adhered to remain secure
+		    - shud be adapted based on needs
+		    - applies to IT system as a whole
+
+	 	    - minimize attack surface area
+		    - secure defaults
+		    - principle of least privilege
+		    - principle of defense in depth
+		    - fail securely
+
+		    - external system are insecure
+		    - separation of duties
+		    - security thru obscurity is not security
+		    - simplicity
+		    - fix issues correctly
+Characteristics of secure orgs
+1. organizational management wid security champions(??)
+2. proper info sec policies
+3. developmental methodologies wid sec checkpoints
+4. secure release and config management
+
+Development Methodology Selection
+1. strong acceptance of design, testing, and docu
+2. sec controls can be easily introduced
+3. matches orgs size and maturity
+4. reduce error rate and improve performance
+
+Coding Standards
+1. archi requirements
+2. docu requirements
+3. testing requirements
+4. in-code comments
+5. exception handling
+6. naming conventions
+
+[Module 2]
+Threat Modeling
+
+Evaluation Methodologies
+1. Manual inspection and review
+	- human-driven review, analyzes impact of peeps, policy etc to security
+	- focused on analyzing existing artifacts and interviewing indivs
+	- has ability to test SDLC as whole
+	- "trust but verify"
+	PROS				CONS
+	- requires no supp tech		- time consuming
+	- flexible			- needed artifacts are sometimes missing
+	- encourages teamwork		- high level of human skill and thot
+	- can be in early SDLC
+
+2. Penetration testing
+	- art of testing deployed applications remotely without knowledge of its workings
+	- staple of network security testing
+	- uses tools and manual tekniks to verify security
+	PROS				CONS
+	- fast and cheap		- late in sdlc
+	- relatively lower skillset req - impact testing only
+	- tests code in production
+
+3. Source code review
+	- manual check of code
+	- provides more info
+	- vulnerabilities that are missed can be seen in code
+	- requires more effort and time
+	PROS				CONS
+	- complete and effective	- high level of skill
+	- accurate 			- compiled lib are not covered
+	- fast				- runtime error may be missed
+					- actual code vs reviewed code
+Threat - undesirable event that is malicious (DOS atk) or incidental (failure of storage device)
+Threat model - structured representation of all info that affects security of an app
+	     - a view of app and its env thru security glasses
+Threat modeling - process for capturing, organizing, and analyzing info dat affects security
+		- enables informed decision making
+		- produces prio list of security improvements
+		PROS				CONS
+		- atkers pov			- new Teknik
+		- flexible 			- gud threat model NOT equal to gud software
+		- early in sdlc	
+
+Objective of threat model - optimize security by identify objectives and vulnerability
+			  - defining countermeasures to prevent/mitigate threat
+benefits - provides clear line of sight that justifies sec efforts
+	 - allows sec decisions to be made rationally
+	 - produces assurance argument to explain/defend security
+	 - assesment argumens starts wid high level claim and justify wid subclaim or evidence(??)
+Prerequisites
+	- clearly defined sec policies
+	- awareness of compliance and regulatory reqs
+	- mature sdlc process
+	- will actually use threat model(TM)
+TM in SDLC
+	- apply continually throughout software dev project
+	- basically same but more granular throughout life cycle
+	- high level TM shud be defined in concept or planning then refined throughout
+	- more details added = more atk vectors
+	- shud examine diagnose and address threats
+
+TM generic steps
+	- combi to try and make realistic threats
+	- dont waste time on threats that are unlikely to happen
+	- no right way
+	- trying to evaluate ALL is waste of time
+	- focus on higher chance of occurring threat
+
+steps:
+1. assessment scope
+2. system modeling
+3. identify threats
+4. evaluation of impact on business
+5. examining threat history
+6. identify vulnerabilities
+7. develop sec threat response plan
+
+STRIDE/DREAD 
+- developed by Microsoft and suggested by OWASP
+- provides classification scheme for known threats
+- inherently built for use wid apps
+- simple to use and deploy
+- developing thorough model may be difficult for inexperienced users
+
+STRIDE
+	spoofing identity
+	tampering with data
+	repudation
+	information disclosure
+	denial of service
+	elevation of privilege
+
+DREAD (check ppt, its like a score on how effective each part is)
+	damage potential
+	reproducibility
+	exploitability
+	affected users
+	discoverability
+
+TM process (look at ppt andami hays)
+1. identify security obj and assets
+2. profile app
+3. decompose app
+4. identify threats and vulnerabilities
+5. document it
+6. prioritize it
+
+Threat graph - as a node tree
+Threat list - its a list
+
+average ranking for DREAD
+Risk=(dmg + reproduce + exploit + affected user + discover)/5
+
+probability x impact ranking
+
+risk = prob of occurance X business impact
+
+risk = (R+E+DI) X (D+A)
