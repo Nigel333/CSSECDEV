@@ -659,11 +659,10 @@ router.get('/signin', (req, res) => {
     } 
     res.clearCookie("connect.sid");
     
-  });
-  
-  res.render('signin', {
-    noLayout: true
-  });
+    res.render('signin', {
+      noLayout: true
+    });
+  });  
 });
 
 router.get('/register', (req, res) => {
