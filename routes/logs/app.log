@@ -43,3 +43,37 @@
 [2025-02-27 11:15:50] INFO: New post inserted with post_id: 3 by user MamaMO
 [2025-02-27 11:16:18] INFO: Post with ID 3 deleted successfully by user MamaMO
 [2025-02-27 13:59:16] INFO: User tay1 logged in successfully from IP ::1
+[2025-03-14 08:27:32] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:28:54] INFO: User admin201 logged out.
+[2025-03-14 08:29:27] WARN: Login attempt for non-existent user: ais
+[2025-03-14 08:29:38] WARN: Login attempt for non-existent user: ais
+[2025-03-14 08:29:58] INFO: User kewk logged in successfully from IP ::1
+[2025-03-14 08:30:14] INFO: New post inserted with post_id: 1 by user kewk
+[2025-03-14 08:30:18] INFO: User kewk logged out.
+[2025-03-14 08:30:26] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:32:20] INFO: User admin201 logged out.
+[2025-03-14 08:32:28] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:36:49] INFO: User admin201 logged out.
+[2025-03-14 08:37:07] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:38:32] INFO: User admin201 logged out.
+[2025-03-14 08:38:45] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:40:52] INFO: User admin201 logged out.
+[2025-03-14 08:41:02] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:41:59] INFO: User admin201 logged out.
+[2025-03-14 08:42:07] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:44:45] INFO: User admin201 logged out.
+[2025-03-14 08:44:54] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:49:43] INFO: User admin201 logged out.
+[2025-03-14 08:49:50] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:50:48] INFO: User admin201 logged out.
+[2025-03-14 08:50:53] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:54:08] INFO: User admin201 logged out.
+[2025-03-14 08:54:13] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:56:55] INFO: User 2 deleted successfully by admin
+[2025-03-14 08:57:14] INFO: User admin201 logged out.
+[2025-03-14 08:57:52] INFO: User kewk logged in successfully from IP ::1
+[2025-03-14 08:58:00] INFO: New post inserted with post_id: 2 by user kewk
+[2025-03-14 08:58:04] INFO: User kewk logged out.
+[2025-03-14 08:58:10] INFO: User admin201 logged in successfully from IP ::1
+[2025-03-14 08:58:20] INFO: User 3 deleted successfully by admin
+[2025-03-14 09:05:03] INFO: User admin201 logged out.

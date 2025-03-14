@@ -1,2 +1,9 @@
-THIS IS ADMIN (temp)
+Hello Admirer
 <a href="/home" id="admin-page">Home</a>
+<script src="/static/js/admin.js"></script>
+
+<div class = "userlist-container">
+    {{#each userlist}}
+    {{> partialAdmin this}}
+    {{/each}}
+</div>

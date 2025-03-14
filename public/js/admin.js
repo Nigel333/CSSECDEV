@@ -6,12 +6,18 @@
 //
 async function deleteUser (user_id){
     try{
-        const response = await fetch(`admin/user/${user_id}`, {
+        const response = await fetch(`/admin/user/${user_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+        if (response.status === 200) {
+            console.log("user deleted");
+            location.reload();
+          } else {
+            console.error("Bad request");
+          }
     }catch (error){
         console.error("error deleting user", error);
 
@@ -19,13 +25,13 @@ async function deleteUser (user_id){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-var deletebutton = document.querySelectorAll('.delete-user');
+var deletebuttons = document.querySelectorAll(".delete-button");
 
-    deletebutton.forEach(function (deletebutton){
+    deletebuttons.forEach(function (deletebutton){
         var user_id = deletebutton.closest(".user-container").id;
         deletebutton.addEventListener('click', function(){
             deleteUser(user_id);
-            deletebutton.closest(".user-container").remove();
+            //deletebutton.closest(".user-container").remove();
         });
     })
 })

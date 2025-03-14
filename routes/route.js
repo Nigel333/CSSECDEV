@@ -687,7 +687,7 @@ router.get('/admin', async(req, res) => {
       req.session.currentUser?.user_id || 0, //WHAT IS THIS FOR? 
     ] );
   
-    console.log("User List:", userlist );
+    //console.log("User List:", userlist );
     
     res.render('admin', {
       title: 'Admin Panel',
@@ -699,17 +699,34 @@ router.get('/admin', async(req, res) => {
   }  
   });
   
-  router.delete("/user/:user_id", sessionTimeoutMiddleware, async (req, res) => {
+  //might need to change to /admin/:user_id
+  router.delete("/admin/user/:user_id", sessionTimeoutMiddleware, async (req, res) => {
     try {
       const useridToDelete = parseInt(req.params.user_id);
-  
-      const que = "DELETE FROM user WHERE user_id = ?";
-      await db.promise().execute(q, [useridToDelete]);
-  
+      console.log("User ID to delete:", useridToDelete);
+      
+      
+      const madeBydelete = `DELETE FROM madeby WHERE user_id = ?`;
+      await db.promise().execute(madeBydelete, [useridToDelete]);
+
       // wipe from the face of the earth
-      const gonegirl = "";
-  
-    } catch (error){}
+      const postdelete = `DELETE FROM post WHERE author = ?`;
+      await db.promise().execute(postdelete, [useridToDelete]);
+
+
+      const commentdelete = `DELETE FROM comment WHERE author = ?`; 
+      await db.promise().execute(commentdelete, [useridToDelete]);
+
+      const userdelete = `DELETE FROM user WHERE user_id = ?`;
+      await db.promise().execute(userdelete, [useridToDelete]);
+
+      logger.info(`User ${useridToDelete} deleted successfully by admin`);
+      res.status(200).json({ message: "user deleted successfully" });
+      
+    } catch (error){
+      console.error("Error deleting user:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   });
 
 router.get("/profile", (req, res) => {
